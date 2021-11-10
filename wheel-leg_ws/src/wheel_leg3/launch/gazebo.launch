@@ -24,7 +24,7 @@
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
     command="$(find xacro)/xacro --inorder '$(find wheel_leg3)/urdf/wheel_leg3.xacro'" />
-
+  
   <node
     name="urdf_spawner"
     pkg="gazebo_ros"
