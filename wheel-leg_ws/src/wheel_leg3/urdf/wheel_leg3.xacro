@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+
+  name="wheel_leg3" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find wheel_leg3)/urdf/wheel_leg3.gazebo" />
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-7.5625E-18 2.0865E-17 0.020003"
+        rpy="0 0 0" />
+      <mass
+        value="3.0" />
+      <inertia
+        ixx="0.004712"
+        ixy="-9.6242E-20"
+        ixz="2.2781E-20"
+        iyy="0.02081558"
+        iyz="-2.8504E-20"
+        izz="0.017536" />
+
+      <!-- <inertia
+        ixx="0.02763116"
+        ixy="-9.6242E-20"
+        ixz="2.2781E-20"
+        iyy="0.009424"
+        iyz="-2.8504E-20"
+        izz="0.035072" /> -->
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.90588 0.39607 0.101960 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link_leg1">
+    <inertial>
+      <origin
+        xyz="7.7704E-17 -0.004 2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.045518" />
+      <inertia
+        ixx="0.00019749"
+        ixy="-1.7857E-20"
+        ixz="1.2878E-19"
+        iyy="0.00027352"
+        iyz="-3.7247E-07"
+        izz="7.6559E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_leg1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_leg1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_base_leg1"
+    type="fixed">
+    <origin
+      xyz="0 -0.1 -0.099"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_leg1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="link_wheel1">
+    <inertial>
+      <origin
+        xyz="-9.0013E-19 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.09293" />
+      <inertia
+        ixx="3.8232E-05"
+        ixy="-1.4809E-20"
+        ixz="1.4223E-21"
+        iyy="7.0742E-05"
+        iyz="-9.308E-22"
+        izz="3.8232E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_wheel1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://wheel_leg3/textures/wheel.jpg" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_wheel1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_leg1_wheel1"
+    type="continuous">
+    <origin
+      xyz="0 -0.018 -0.114"
+      rpy="0 0 0" />
+    <parent
+      link="link_leg1" />
+    <child
+      link="link_wheel1" />
+    <axis
+      xyz="0 -1 0" />
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+  <link
+    name="link_leg2">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.045518" />
+      <inertia
+        ixx="0.00019749"
+        ixy="-1.30208900143619E-2"
+        ixz="-3.32970136925068E-21"
+        iyy="0.000273522842562215"
+        iyz="3.72467225009607E-07"
+        izz="7.65594944217713E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_leg2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_leg2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_base_leg2"
+    type="fixed">
+    <origin
+      xyz="0 0.1 -0.099"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_leg2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="link_wheel2">
+    <inertial>
+      <origin
+        xyz="-2.6447E-19 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.09293" />
+      <inertia
+        ixx="3.8232E-05"
+        ixy="-1.159E-20"
+        ixz="1.5015E-21"
+        iyy="7.0742E-05"
+        iyz="1.2506E-22"
+        izz="3.8232E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_wheel2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://wheel_leg3/textures/wheel.jpg" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://wheel_leg3/meshes/link_wheel2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_leg2_wheel2"
+    type="continuous">
+    <origin
+      xyz="0 0.018 -0.114"
+      rpy="0 0 0" />
+    <parent
+      link="link_leg2" />
+    <child
+      link="link_wheel2" />
+    <axis
+      xyz="0 -1 0" />
+    <dynamics damping="0.1" friction="0.0"/>
+  </joint>
+
+  <!-- <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_leg1_wheel1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_leg2_wheel2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission> -->
+</robot>
