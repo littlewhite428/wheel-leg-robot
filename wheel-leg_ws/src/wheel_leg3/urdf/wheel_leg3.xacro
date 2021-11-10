@@ -48,7 +48,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/base_link.STL" />
+          filename="package://wheel_leg3/meshes/base_link.dae" />
       </geometry>
       <material
         name="">
@@ -62,7 +62,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/base_link.STL" />
+          filename="package://wheel_leg3/meshes/base_link.dae" />
       </geometry>
     </collision>
   </link>
@@ -88,7 +88,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_leg1.STL" />
+          filename="package://wheel_leg3/meshes/link_leg1.dae" />
       </geometry>
       <material
         name="">
@@ -102,7 +102,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_leg1.STL" />
+          filename="package://wheel_leg3/meshes/link_leg1.dae" />
       </geometry>
     </collision>
   </link>
@@ -141,7 +141,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_wheel1.STL" />
+          filename="package://wheel_leg3/meshes/link_wheel1.dae" />
       </geometry>
       <material
         name="">
@@ -157,7 +157,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_wheel1.STL" />
+          filename="package://wheel_leg3/meshes/link_wheel1.dae" />
       </geometry>
     </collision>
   </link>
@@ -197,7 +197,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_leg2.STL" />
+          filename="package://wheel_leg3/meshes/link_leg2.dae" />
       </geometry>
       <material
         name="">
@@ -211,7 +211,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_leg2.STL" />
+          filename="package://wheel_leg3/meshes/link_leg2.dae" />
       </geometry>
     </collision>
   </link>
@@ -250,7 +250,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_wheel2.STL" />
+          filename="package://wheel_leg3/meshes/link_wheel2.dae" />
       </geometry>
       <material
         name="">
@@ -266,7 +266,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg3/meshes/link_wheel2.STL" />
+          filename="package://wheel_leg3/meshes/link_wheel2.dae" />
       </geometry>
     </collision>
   </link>

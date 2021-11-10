@@ -8,8 +8,8 @@ wheel_leg3:
   wheel1_velocity_controller:
     type: velocity_controllers/JointVelocityController
     joint: joint_leg1_wheel1
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    # pid: {p: 100.0, i: 0.1, d: 10.0}
   wheel2_velocity_controller:
     type: velocity_controllers/JointVelocityController
     joint: joint_leg2_wheel2
-    pid: {p: 100.0, i: 0.1, d: 10.0}
+    # pid: {p: 100.0, i: 0.1, d: 10.0}
