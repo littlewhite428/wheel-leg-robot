@@ -18,5 +18,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find wheel_leg3)/urdf.rviz" />
+    args="-d $(find wheel_leg3)/urdf/urdf.rviz" />
 </launch>

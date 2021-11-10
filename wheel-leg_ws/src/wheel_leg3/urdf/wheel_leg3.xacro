@@ -7,6 +7,16 @@
   name="wheel_leg3" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find wheel_leg3)/urdf/wheel_leg3.gazebo" />
+  
+  <link name="dummy" />
+
+  <joint name="joint_dummy_base_link" type="fixed">
+  <origin
+      xyz="0 0 0.253"
+      rpy="0 0 0" />
+    <parent link="dummy" />
+    <child link="base_link" />
+  </joint>
 
   <link
     name="base_link">
@@ -16,21 +26,21 @@
         rpy="0 0 0" />
       <mass
         value="3.0" />
-      <inertia
+      <!-- <inertia
         ixx="0.004712"
         ixy="-9.6242E-20"
         ixz="2.2781E-20"
         iyy="0.02081558"
         iyz="-2.8504E-20"
-        izz="0.017536" />
+        izz="0.017536" /> -->
 
-      <!-- <inertia
+      <inertia
         ixx="0.02763116"
         ixy="-9.6242E-20"
         ixz="2.2781E-20"
         iyy="0.009424"
         iyz="-2.8504E-20"
-        izz="0.035072" /> -->
+        izz="0.035072" />
     </inertial>
     <visual>
       <origin
@@ -275,7 +285,7 @@
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
 
-  <!-- <transmission name="tran1">
+  <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_leg1_wheel1">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -295,5 +305,5 @@
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
-  </transmission> -->
+  </transmission>
 </robot>

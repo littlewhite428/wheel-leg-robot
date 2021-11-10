@@ -29,7 +29,8 @@
     name="urdf_spawner"
     pkg="gazebo_ros"
     type="spawn_model"
-    args="-urdf -model wheel_leg3 -param robot_description"
+    respawn="false"
+    args="-urdf -model wheel_leg3 -param robot_description -x 0 -y 0 -z 1"
     output="screen" />
   <!-- <node
     name="fake_joint_calibration"
