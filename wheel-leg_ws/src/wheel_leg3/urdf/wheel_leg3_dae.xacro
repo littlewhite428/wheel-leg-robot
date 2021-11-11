@@ -8,13 +8,13 @@
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find wheel_leg3)/urdf/wheel_leg3.gazebo" />
   
-  <link name="dummy" />
+  <link name="base_footprint" />
 
-  <joint name="joint_dummy_base_link" type="fixed">
+  <joint name="joint_base_footprint_base_link" type="fixed">
   <origin
       xyz="0 0 0.253"
       rpy="0 0 0" />
-    <parent link="dummy" />
+    <parent link="base_footprint" />
     <child link="base_link" />
   </joint>
 
@@ -50,6 +50,11 @@
         <mesh
           filename="package://wheel_leg3/meshes/base_link.dae" />
       </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.90588 0.39607 0.101960 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -85,6 +90,11 @@
         <mesh
           filename="package://wheel_leg3/meshes/link_leg1.dae" />
       </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -133,6 +143,11 @@
         <mesh
           filename="package://wheel_leg3/meshes/link_wheel1.dae" />
       </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -155,7 +170,7 @@
     <child
       link="link_wheel1" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
   <link
@@ -182,6 +197,11 @@
         <mesh
           filename="package://wheel_leg3/meshes/link_leg2.dae" />
       </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -230,6 +250,11 @@
         <mesh
           filename="package://wheel_leg3/meshes/link_wheel2.dae" />
       </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
     </visual>
     <collision>
       <origin
@@ -252,7 +277,7 @@
     <child
       link="link_wheel2" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
 

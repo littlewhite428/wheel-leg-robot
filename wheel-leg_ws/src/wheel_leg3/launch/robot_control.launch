@@ -13,7 +13,11 @@
     <remap from="/joint_states" to="/wheel_leg3/joint_states" />
   </node>
   <!-- convert ground trouth odom to tf -->
-  <node name="odom_to_tf" pkg="wheel_leg3" type="odom_topic_to_tf.py" />
+  <node name="odom_to_tf" pkg="wheel_leg3" type="odom_topic_to_tf.py" >
+    <param name="~odom_name" value="/ground_truth/state" />
+    <param name="~static_frame" value="world" />
+    <param name="~goal_frame" value="base_footprint" />
+  </node>
   <!-- Rviz -->
   <node
   name="rviz"

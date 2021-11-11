@@ -17,10 +17,10 @@ def odom_callback(odom_msg):
 
 
 rospy.init_node("odom_to_tf")
-odom_name = rospy.get_param("~odom_name","/ground_truth/state")
+odom_name = rospy.get_param("~odom_name")
 
-static_frame = rospy.get_param("~static_frame","world")
-goal_frame = rospy.get_param("~goal_frame","base_footprint")
+static_frame = rospy.get_param("~static_frame")
+goal_frame = rospy.get_param("~goal_frame")
 
 odom_sub = rospy.Subscriber(odom_name,Odometry,odom_callback,queue_size=1)
 br = tf.TransformBroadcaster()
