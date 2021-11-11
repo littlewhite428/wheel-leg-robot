@@ -8,13 +8,13 @@
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find wheel_leg3)/urdf/wheel_leg3.gazebo" />
   
-  <link name="dummy" />
+  <link name="base_footprint" />
 
-  <joint name="joint_dummy_base_link" type="fixed">
+  <joint name="joint_base_footprint_base_link" type="fixed">
   <origin
       xyz="0 0 0.253"
       rpy="0 0 0" />
-    <parent link="dummy" />
+    <parent link="base_footprint" />
     <child link="base_link" />
   </joint>
 

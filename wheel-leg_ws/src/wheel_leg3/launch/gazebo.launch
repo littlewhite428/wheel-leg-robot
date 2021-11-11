@@ -1,17 +1,18 @@
 <launch>
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
-  <arg name="paused" default="false"/>
+  <arg name="paused" default="true"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="x" default="0.0" />
   <arg name="y" default="0.0" />
-  <arg name="z" default="0.2" />
+  <arg name="z" default="0.005" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find rrbot_gazebo)/worlds/rrbot.world"/>
+    <!-- <arg name="world_name" value="worlds/helloworld.world"/> -->
+    <arg name="world_name" value="$(find wheel_leg3)/worlds/helloworld.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -35,6 +36,7 @@
     respawn="false"
     args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model wheel_leg3 -param robot_description"
     output="screen" />
+    
   <!-- <node
     name="fake_joint_calibration"
     pkg="rostopic"
