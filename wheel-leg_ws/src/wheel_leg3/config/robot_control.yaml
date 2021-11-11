@@ -4,7 +4,7 @@ wheel_leg3:
     type: joint_state_controller/JointStateController
     publish_rate: 50  
   
-  # effort Controllers ---------------------------------------
+  # effort_controllers/JointEffortController---velocity_controllers/JointVelocityController---
   wheel1_velocity_controller:
     type: velocity_controllers/JointVelocityController
     joint: joint_leg1_wheel1

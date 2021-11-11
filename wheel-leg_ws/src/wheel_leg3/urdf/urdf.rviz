@@ -61,11 +61,19 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         link_leg1:
           Alpha: 1
           Show Axes: false
@@ -97,7 +105,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_footprint:
+          Value: true
         base_link:
+          Value: true
+        imu_link:
           Value: true
         link_leg1:
           Value: true
@@ -107,26 +119,32 @@ Visualization Manager:
           Value: true
         link_wheel2:
           Value: true
+        world:
+          Value: true
       Marker Scale: 0.300000012
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          link_leg1:
-            link_wheel1:
-              {}
-          link_leg2:
-            link_wheel2:
-              {}
+        world:
+          base_footprint:
+            base_link:
+              imu_link:
+                {}
+              link_leg1:
+                link_wheel1:
+                  {}
+              link_leg2:
+                link_wheel2:
+                  {}
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
