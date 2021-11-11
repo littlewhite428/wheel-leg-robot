@@ -3,7 +3,7 @@
     name="model" />
   <param
     name="robot_description"
-    textfile="$(find wheel_leg3)/urdf/wheel_leg3.xacro" />
+    textfile="$(find wheel_leg3)/urdf/wheel_leg3_dae.xacro" />
   <node
     name="joint_state_publisher_gui"
     pkg="joint_state_publisher_gui"

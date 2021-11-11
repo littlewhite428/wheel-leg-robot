@@ -5,6 +5,9 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.2" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -23,14 +26,14 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-    command="$(find xacro)/xacro --inorder '$(find wheel_leg3)/urdf/wheel_leg3.xacro'" />
+    command="$(find xacro)/xacro --inorder '$(find wheel_leg3)/urdf/wheel_leg3_stl.xacro'" />
   
   <node
     name="urdf_spawner"
     pkg="gazebo_ros"
     type="spawn_model"
     respawn="false"
-    args="-urdf -model wheel_leg3 -param robot_description -x 0 -y 0 -z 1"
+    args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model wheel_leg3 -param robot_description"
     output="screen" />
   <!-- <node
     name="fake_joint_calibration"
