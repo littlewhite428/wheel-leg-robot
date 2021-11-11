@@ -10,6 +10,8 @@ for wheel_leg3 robot</p>
   <maintainer email="TODO@email.com" />
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+
   <run_depend>roslaunch</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>rviz</run_depend>
@@ -22,6 +24,7 @@ for wheel_leg3 robot</p>
   <run_depend>rrbot_control</run_depend>
   <run_depend>rrbot_description</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>message_runtime</run_depend>
   <export>
     <architecture_independent />
   </export>

@@ -18,6 +18,15 @@
     <param name="~static_frame" value="world" />
     <param name="~goal_frame" value="base_footprint" />
   </node>
+  <!-- balance state listerner -->
+  <node name="balance_observer" pkg="wheel_leg3" type="balance_observer.py" >
+    <param name="~imu_topic" value="/imu" />
+    <param name="~odom_topic" value="/ground_truth/state" />
+    <param name="~encoder1_topic" value="/wheel_leg3/wheel1_velocity_controller/command" />
+    <param name="~encoder2_topic" value="/wheel_leg3/wheel2_velocity_controller/command" />
+    <param name="~wheel_distance" value="0.236" />
+    <param name="~wheel_radius" value="0.04" />
+  </node>
   <!-- Rviz -->
   <node
   name="rviz"
