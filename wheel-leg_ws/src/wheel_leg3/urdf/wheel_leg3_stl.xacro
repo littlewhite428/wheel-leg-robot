@@ -172,7 +172,7 @@
     <child
       link="link_wheel1" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
   <link
@@ -281,7 +281,7 @@
     <child
       link="link_wheel2" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
 
