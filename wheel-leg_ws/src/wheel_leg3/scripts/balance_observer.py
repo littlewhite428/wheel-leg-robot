@@ -33,6 +33,9 @@ class balance_observer:
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
         self.pitch = p
         self.fai = msg.angular_velocity.y
+    '''
+    odom velocity and angular velocity both in world frame
+    '''
     def odoom_cb(self,msg):
         self.fake_velocity = msg.twist.twist.linear.x
         self.fake_pusai = msg.twist.twist.angular.z
