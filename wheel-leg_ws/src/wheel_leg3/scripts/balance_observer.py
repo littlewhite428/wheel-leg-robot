@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import rospy
 import tf
 from sensor_msgs.msg import Imu
@@ -15,7 +15,11 @@ class balance_observer:
         self.odom_listener = rospy.Subscriber(odom_topic,Odometry,self.odoom_cb,queue_size=1)
         self.encoder1_listener = rospy.Subscriber(encoder1_topic,Float64,self.encoder1_cb,queue_size=1)
         self.encoder2_listener = rospy.Subscriber(encoder2_topic,Float64,self.encoder2_cb,queue_size=1)
-        self.balance_state_publisher = rospy.Publisher('balance_state',Balance,queue_size=10)
+
+        self.velocity_publisher = rospy.Publisher('/balance_state_velocity',Float64,queue_size=10)
+        self.angle_publisher = rospy.Publisher('/balance_state_angle',Float64,queue_size=10)
+        self.angular_velocity_publisher = rospy.Publisher('/balance_state_angular',Float64,queue_size=10)
+        self.balance_state_publisher = rospy.Publisher('/balance_state',Balance,queue_size=10)
 
         self.velocity = 0
         self.pusai = 0
@@ -34,12 +38,17 @@ class balance_observer:
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
         self.pitch = p
         self.fai = msg.angular_velocity.y
+
+        self.angle_publisher.publish(Float64(self.pitch))
+        self.angular_velocity_publisher.publish(Float64(self.fai))
     '''
     odom velocity and angular velocity both in world frame
     '''
     def odoom_cb(self,msg):
         self.fake_velocity = math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = msg.twist.twist.angular.z
+
+        self.velocity_publisher.publish(Float64(self.fake_velocity))
     def encoder1_cb(self,msg):
         self.right_roundps = msg.data
     def encoder2_cb(self,msg):

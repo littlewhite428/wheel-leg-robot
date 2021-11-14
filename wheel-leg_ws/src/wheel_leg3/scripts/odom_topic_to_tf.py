@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import rospy
 import tf
 from nav_msgs.msg import Odometry

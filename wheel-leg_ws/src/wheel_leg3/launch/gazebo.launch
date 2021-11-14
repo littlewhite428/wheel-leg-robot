@@ -34,7 +34,7 @@
     pkg="gazebo_ros"
     type="spawn_model"
     respawn="false"
-    args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -Y 1.57 -model wheel_leg3 -param robot_description"
+    args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model wheel_leg3 -param robot_description"
     output="screen" />
     
   <!-- <node
