@@ -1,5 +1,5 @@
 <launch>
-    <!-- <node name="controller" pkg="pid" type="controller" ns="velocity_loop" output="screen" >
+    <node name="controller" pkg="pid" type="controller" ns="velocity_loop" output="screen" >
         <param name="node_name" value="velocity_pid" />
         <param name="Kp" value="5.0" />
         <param name="Ki" value="0.0" />
@@ -7,44 +7,44 @@
         <param name="upper_limit" value="1" />
         <param name="lower_limit" value="-1" />
         <param name="windup_limit" value="2" />
-        <param name="max_loop_frequency" value="100.0" />
-        <param name="min_loop_frequency" value="100.0" />
+        <param name="max_loop_frequency" value="200.0" />
+        <param name="min_loop_frequency" value="200.0" />
 
         <remap from="setpoint" to="/velocity_des" />
-        <remap from="topic_from_plant" to="/balance_state/velocity" />
-        <remap from="topic_from_controller" to="/angle_des" />
-    </node> -->
+        <remap from="state" to="/balance_state_velocity" />
+        <remap from="control_effort" to="/angle_des" />
+    </node>
 
     <node name="controller" pkg="pid" type="controller" ns="angle_loop" output="screen" >
         <param name="node_name" value="angle_pid" />
-        <param name="Kp" value="5.0" />
+        <param name="Kp" value="-30.0" />
         <param name="Ki" value="0.0" />
         <param name="Kd" value="0.0" />
         <param name="upper_limit" value="5" />
         <param name="lower_limit" value="-5" />
         <param name="windup_limit" value="1" />
-        <param name="max_loop_frequency" value="100.0" />
-        <param name="min_loop_frequency" value="100.0" />
+        <param name="max_loop_frequency" value="200.0" />
+        <param name="min_loop_frequency" value="200.0" />
 
         <remap from="setpoint" to="/angle_des" />
         <remap from="state" to="/balance_state_angle" />
-        <remap from="control_effort" to="/angular_velocity_des" />
+        <remap from="control_effort" to="/balance_command1" />
     </node>
 
     <node name="controller" pkg="pid" type="controller" ns="angular_velocity_loop" output="screen" >
         <param name="node_name" value="angular_velocity_pid" />
-        <param name="Kp" value="-4.0" />
+        <param name="Kp" value="-14.0" />
         <param name="Ki" value="0.0" />
         <param name="Kd" value="0.0" />
         <param name="upper_limit" value="5" />
         <param name="lower_limit" value="-5" />
         <param name="windup_limit" value="10" />
-        <param name="max_loop_frequency" value="100.0" />
-        <param name="min_loop_frequency" value="100.0" />
+        <param name="max_loop_frequency" value="200.0" />
+        <param name="min_loop_frequency" value="200.0" />
 
         <remap from="setpoint" to="/angular_velocity_des" />
         <remap from="state" to="/balance_state_angular" />
-        <remap from="control_effort" to="/balance_v_command" />
+        <remap from="control_effort" to="/balance_command2" />
     </node>
     <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
     <node name="control_assign" pkg="wheel_leg3" type="control_assign.py" />

@@ -28,11 +28,11 @@
     <param name="~wheel_radius" value="0.04" />
   </node>
   <!-- Rviz -->
-  <node
+  <!-- <node
   name="rviz"
   pkg="rviz"
   type="rviz"
-  args="-d $(find wheel_leg3)/urdf/urdf.rviz" />
+  args="-d $(find wheel_leg3)/urdf/urdf.rviz" /> -->
 
 
 </launch>
