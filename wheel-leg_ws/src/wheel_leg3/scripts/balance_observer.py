@@ -48,7 +48,7 @@ class balance_observer:
         self.fake_velocity = math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = msg.twist.twist.angular.z
 
-        self.velocity_publisher.publish(Float64(self.fake_velocity))
+        # self.velocity_publisher.publish(Float64(self.fake_velocity))
     def encoder1_cb(self,msg):
         self.right_roundps = msg.data
     def encoder2_cb(self,msg):
@@ -68,6 +68,7 @@ class balance_observer:
         balance_msg.pusai = self.fake_pusai
         balance_msg.velocity = self.fake_velocity
 
+        self.velocity_publisher.publish(Float64(self.roundps_to_mps * (self.left_roundps + self.right_roundps) / 2))
         self.balance_state_publisher.publish(balance_msg)
 
 def main():
