@@ -7,6 +7,7 @@ from std_msgs.msg import Float64
 from std_msgs.msg import Header
 from wheel_leg3.msg import Balance
 import sys
+import math
 
 class balance_observer:
     def __init__(self,imu_topic,odom_topic,encoder1_topic,encoder2_topic,L,Wheel_Radius):
@@ -37,7 +38,7 @@ class balance_observer:
     odom velocity and angular velocity both in world frame
     '''
     def odoom_cb(self,msg):
-        self.fake_velocity = msg.twist.twist.linear.x
+        self.fake_velocity = math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = msg.twist.twist.angular.z
     def encoder1_cb(self,msg):
         self.right_roundps = msg.data
@@ -52,8 +53,11 @@ class balance_observer:
         balance_msg.header = header
         balance_msg.pitch = self.pitch
         balance_msg.fai = self.fai
-        balance_msg.pusai = self.roundps_to_mps * (self.right_roundps - self.left_roundps) / self.L
-        balance_msg.velocity = self.roundps_to_mps * (self.left_roundps + self.right_roundps) / 2
+        # balance_msg.pusai = self.roundps_to_mps * (self.right_roundps - self.left_roundps) / self.L
+        # balance_msg.velocity = self.roundps_to_mps * (self.left_roundps + self.right_roundps) / 2
+
+        balance_msg.pusai = self.fake_pusai
+        balance_msg.velocity = self.fake_velocity
 
         self.balance_state_publisher.publish(balance_msg)
 
@@ -82,7 +86,6 @@ def main():
         sys.exit(-1)
     if rospy.has_param("~wheel_distance"):
         wheel_distance = rospy.get_param("~wheel_distance")
-        print(type(wheel_distance))
     else:
         rospy.logerr("lack param of wheel_distance ") 
         sys.exit(-1)  
