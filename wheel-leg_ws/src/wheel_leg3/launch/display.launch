@@ -1,3 +1,4 @@
+<!-- 打开rviz检查urdf文件解析效果 -->
 <launch>
   <arg
     name="model" />

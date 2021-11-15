@@ -1,3 +1,4 @@
+<!-- 加载机器人关节驱动器，以及观测器脚本 -->
 <launch>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->

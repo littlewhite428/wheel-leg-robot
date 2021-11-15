@@ -29,7 +29,9 @@ class balance_observer:
         self.fai = 0
         
         self.right_roundps = 0
+        self.last_right_roundps = 0
         self.left_roundps = 0
+        self.last_left_roundps = 0
 
         self.L = L
         self.roundps_to_mps = 2 * 3.1415926 * Wheel_Radius # r/s to m/s Radius=0.04m
@@ -45,14 +47,16 @@ class balance_observer:
     odom velocity and angular velocity both in world frame
     '''
     def odoom_cb(self,msg):
+        # problem here
         self.fake_velocity = math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = msg.twist.twist.angular.z
 
-        # self.velocity_publisher.publish(Float64(self.fake_velocity))
     def encoder1_cb(self,msg):
-        self.right_roundps = msg.data
+        self.right_roundps = 1*msg.data+(1-1)*self.last_right_roundps
+        self.last_right_roundps = self.right_roundps
     def encoder2_cb(self,msg):
-        self.left_roundps = msg.data
+        self.left_roundps = 1*msg.data+(1-1)*self.last_left_roundps
+        self.last_left_roundps = self.left_roundps
     def publish(self):
         balance_msg = Balance()
         header = Header()
