@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import rospy
 import tf
-from sensor_msgs.msg import Imu
+from sensor_msgs.msg import Imu,JointState
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float64
 from std_msgs.msg import Header
@@ -13,8 +13,8 @@ class balance_observer:
     def __init__(self,imu_topic,odom_topic,encoder1_topic,encoder2_topic,L,Wheel_Radius):
         self.imu_listener = rospy.Subscriber(imu_topic,Imu,self.imu_cb,queue_size=1)
         self.odom_listener = rospy.Subscriber(odom_topic,Odometry,self.odoom_cb,queue_size=1)
-        self.encoder1_listener = rospy.Subscriber(encoder1_topic,Float64,self.encoder1_cb,queue_size=1)
-        self.encoder2_listener = rospy.Subscriber(encoder2_topic,Float64,self.encoder2_cb,queue_size=1)
+        self.encoder1_listener = rospy.Subscriber(encoder1_topic,JointState,self.encoder1_cb,queue_size=1)
+        self.encoder2_listener = rospy.Subscriber(encoder2_topic,JointState,self.encoder2_cb,queue_size=1)
 
         self.velocity_publisher = rospy.Publisher('/balance_state_velocity',Float64,queue_size=10)
         self.angle_publisher = rospy.Publisher('/balance_state_angle',Float64,queue_size=10)
@@ -28,13 +28,13 @@ class balance_observer:
         self.fake_pusai = 0
         self.fai = 0
         
-        self.right_roundps = 0
-        self.last_right_roundps = 0
-        self.left_roundps = 0
-        self.last_left_roundps = 0
+        self.right_radps = 0
+        self.last_right_radps = 0
+        self.left_radps = 0
+        self.last_left_radps = 0
 
         self.L = L
-        self.roundps_to_mps = 2 * 3.1415926 * Wheel_Radius # r/s to m/s Radius=0.04m
+        self.radps_to_mps =  Wheel_Radius # r/s to m/s Radius=0.04m
     def imu_cb(self,msg):
         quaternion = [msg.orientation.x,msg.orientation.y,msg.orientation.z,msg.orientation.w]
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
@@ -48,15 +48,16 @@ class balance_observer:
     '''
     def odoom_cb(self,msg):
         # problem here
-        self.fake_velocity = math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
+        symbo = 1 if (self.right_radps + self.left_radps) > 0 else -1
+        self.fake_velocity = symbo * math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = msg.twist.twist.angular.z
 
     def encoder1_cb(self,msg):
-        self.right_roundps = 1*msg.data+(1-1)*self.last_right_roundps
-        self.last_right_roundps = self.right_roundps
+        self.right_radps = 1*msg.velocity[0]+(1-1)*self.last_right_radps
+        self.last_right_radps = self.right_radps
     def encoder2_cb(self,msg):
-        self.left_roundps = 1*msg.data+(1-1)*self.last_left_roundps
-        self.last_left_roundps = self.left_roundps
+        self.left_radps = 1*msg.velocity[1]+(1-1)*self.last_left_radps
+        self.last_left_radps = self.left_radps
     def publish(self):
         balance_msg = Balance()
         header = Header()
@@ -66,13 +67,13 @@ class balance_observer:
         balance_msg.header = header
         balance_msg.pitch = self.pitch
         balance_msg.fai = self.fai
-        # balance_msg.pusai = self.roundps_to_mps * (self.right_roundps - self.left_roundps) / self.L
-        # balance_msg.velocity = self.roundps_to_mps * (self.left_roundps + self.right_roundps) / 2
+        # balance_msg.pusai = self.radps_to_mps * (self.right_radps - self.left_radps) / self.L
+        # balance_msg.velocity = self.radps_to_mps * (self.left_radps + self.right_radps) / 2
 
         balance_msg.pusai = self.fake_pusai
         balance_msg.velocity = self.fake_velocity
 
-        self.velocity_publisher.publish(Float64(self.roundps_to_mps * (self.left_roundps + self.right_roundps) / 2))
+        self.velocity_publisher.publish(Float64(self.radps_to_mps * (self.left_radps + self.right_radps) / 2))
         self.balance_state_publisher.publish(balance_msg)
 
 def main():
@@ -111,7 +112,7 @@ def main():
 
     obs = balance_observer(imu_topic,odom_topic,encoder1_topic,encoder2_topic,wheel_distance,wheel_radius)
 
-    rat = rospy.Rate(100)
+    rat = rospy.Rate(200)
     while not rospy.is_shutdown():
         rat.sleep()
         obs.publish()
