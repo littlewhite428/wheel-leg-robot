@@ -86,7 +86,7 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='unit_box'>
+    <!-- <model name='unit_box'>
       <pose frame=''>-0.69038 0.047351 0.5 0 -0 0</pose>
       <link name='link'>
         <inertial>
@@ -187,7 +187,7 @@
         <self_collide>0</self_collide>
         <kinematic>1</kinematic>
       </link>
-    </model>
+    </model> -->
     <state world_name='default'>
       <sim_time>0 0</sim_time>
       <real_time>0 0</real_time>
