@@ -15,11 +15,15 @@
   </gazebo>
   <!-- base_link -->
   <gazebo reference="base_link">
+    <kp>100000</kp>
+    <kd>0.8</kd>
     <material>Gazebo/Orange</material>
   </gazebo>
 
   <!-- link_leg2 -->
   <gazebo reference="link_leg1">
+    <kp>100000</kp>
+    <kd>0.8</kd>
     <material>Gazebo/Gray</material>
   </gazebo>
 
@@ -27,15 +31,17 @@
   <gazebo reference="link_wheel1">
     <mu1>100</mu1>
     <mu2>100</mu2>
-    <kp>100000000</kp>
-    <kd>1</kd>
-    <minDepth>0.01</minDepth>
-    <maxVel>10</maxVel>  
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <minDepth>0.0001</minDepth>
+    <!-- <maxVel>10</maxVel>   -->
     <material>Gazebo/Black</material>
   </gazebo>
 
   <!-- link_leg2 -->
   <gazebo reference="link_leg2">
+    <kp>100000</kp>
+    <kd>0.8</kd>
     <material>Gazebo/Gray</material>
   </gazebo>
 
@@ -43,10 +49,10 @@
   <gazebo reference="link_wheel2">
     <mu1>100</mu1>
     <mu2>100</mu2>
-    <kp>100000000</kp>
-    <kd>1</kd>
-    <minDepth>0.01</minDepth>
-    <maxVel>10</maxVel>  
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <minDepth>0.0001</minDepth>
+    <!-- <maxVel>10</maxVel>   -->
     <material>Gazebo/Black</material>
   </gazebo>
 
