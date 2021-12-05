@@ -166,6 +166,7 @@
     <axis
       xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
+    <!-- <limit velocity="40.0" effort="10.0" /> -->
   </joint>
   <link
     name="link_leg2">
@@ -275,6 +276,7 @@
     <axis
       xyz="0 1 0" />
     <dynamics damping="0.1" friction="0.0"/>
+    <!-- <limit velocity="40.0" effort="10.0" /> -->
   </joint>
 
   <link name="imu_link"/>
