@@ -25,5 +25,5 @@ rank(ctrb(A,B))
 
 [G,H] = c2d(A,B,Ts)
 % LQR
-Q=diag([50,100,20,1]);R=diag([1,1]);
+Q=diag([50,100,20,10]);R=diag([1,1]);
 [K,S_tmp,E_tmp] = lqr(A,B,Q,R)
