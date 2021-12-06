@@ -18,12 +18,32 @@ delta = m11*m22 - m21*m12;
 % state = [a,a_dot,x_dot,pusai_dot] 
 % u = [t_r t_l]
 Ts = 0.01
-A = [0 1 0 0;m11*G/delta 0 0 0;-m12*G/delta 0 0 0;0 0 0 0]
-B = [0 0;-(m11+m21)/delta -(m11+m21)/delta;(m12+m22)/delta (m12+m22)/delta;m31^-1 -m31^-1]
-
+A = [0 1 0 0;m11*G/delta 0 0 0;-m12*G/delta 0 0 0;0 0 0 0];
+B = [0 0;-(m11+m21)/delta -(m11+m21)/delta;(m12+m22)/delta (m12+m22)/delta;m31^-1 -m31^-1];
+C=[0 0 1 0;0 0 0 1];
+D=[0 0;0 0;];
+sys1 = ss(A,B,C,D);
 rank(ctrb(A,B))
 
-[G,H] = c2d(A,B,Ts)
 % LQR
-Q=diag([50,100,20,10]);R=diag([1,1]);
-[K,S_tmp,E_tmp] = lqr(A,B,Q,R)
+Q=diag([50,150,10,10]);R=diag([1,1]);
+[K,S_tmp,E_tmp] = lqr(sys1.A,sys1.B,Q,R)
+
+% sys_d = c2d(sys1,Ts)
+% dlqr(sys_d.A,sys_d.B,Q,R)
+
+% 内膜控制器
+A_c = [0 0;0 0];
+b_c = [1 0;0 1];
+C_c = eye(2);
+D_c = [0 0;0 0];
+sys_c = ss(A_c,b_c,C_c,D_c);
+sys_c_d = c2d(sys_c,Ts);
+
+A_s = [A  zeros(4,2);-b_c*C A_c];
+B_s = [B;-b_c*D];
+Q_s = diag([50,100,20,10,50,50]);R=diag([1,1]);
+[KK,S_tmp,E_tmp] = lqr(A_s,B_s,Q_s,R_s)
+
+K=KK(:,1:4)
+K_c = -KK(:,5:6)
