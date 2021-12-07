@@ -53,13 +53,13 @@ class balance_observer:
         self.fake_velocity = symbo * math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = 0.7*msg.twist.twist.angular.z + (1-0.7) * self.last_fake_pusai
         self.last_fake_pusai = self.fake_pusai
-        self.pusai_publisher.publish(Float64(self.fake_pusai))
+        # self.pusai_publisher.publish(Float64(self.fake_pusai))
 
     def encoder1_cb(self,msg):
-        self.right_radps = 0.7*msg.velocity[0]+(1-0.7)*self.last_right_radps
+        self.right_radps = 0.3*msg.velocity[0]+(1-0.3)*self.last_right_radps
         self.last_right_radps = self.right_radps
     def encoder2_cb(self,msg):
-        self.left_radps = 0.7*msg.velocity[1]+(1-0.7)*self.last_left_radps
+        self.left_radps = 0.3*msg.velocity[1]+(1-0.3)*self.last_left_radps
         self.last_left_radps = self.left_radps
     def publish(self):
         balance_msg = Balance()
@@ -77,8 +77,9 @@ class balance_observer:
         balance_msg.velocity = self.fake_velocity
 
         self.velocity_publisher.publish(Float64(self.radps_to_mps * (self.left_radps + self.right_radps) / 2))
+        self.pusai_publisher.publish(Float64(self.radps_to_mps * (self.right_radps - self.left_radps) / self.L))
         self.balance_state_publisher.publish(balance_msg)
-
+        
 def main():
     rospy.init_node("balance_observer")
     # param get

@@ -26,13 +26,13 @@ sys1 = ss(A,B,C,D);
 rank(ctrb(A,B))
 
 % LQR
-Q=diag([50,150,10,10]);R=diag([1,1]);
+Q=diag([50,150,30,10]);R=diag([1,1]);
 [K,S_tmp,E_tmp] = lqr(sys1.A,sys1.B,Q,R)
 
 % sys_d = c2d(sys1,Ts)
 % dlqr(sys_d.A,sys_d.B,Q,R)
 
-% 内膜控制器
+% 内模控制器
 A_c = [0 0;0 0];
 b_c = [1 0;0 1];
 C_c = eye(2);
@@ -42,7 +42,7 @@ sys_c_d = c2d(sys_c,Ts);
 
 A_s = [A  zeros(4,2);-b_c*C A_c];
 B_s = [B;-b_c*D];
-Q_s = diag([50,100,20,10,50,50]);R=diag([1,1]);
+Q_s = diag([50,100,20,10,50,50]);R_s=diag([1,1]);
 [KK,S_tmp,E_tmp] = lqr(A_s,B_s,Q_s,R_s)
 
 K=KK(:,1:4)
