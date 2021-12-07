@@ -46,7 +46,10 @@ qtcreator-*
 
 # Emacs
 .#*
-
+#simulink backup
+*.slx.autosave
+*.slxc
+slprj/
 #vscode
 *.vscode/
 # Catkin custom files
