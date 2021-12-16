@@ -1,0 +1,47 @@
+<!-- 加载机器人关节驱动器，以及观测器脚本 -->
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find wheel_leg)/config/robot_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/wheel_leg" 
+    args="
+          right_wheel_effort_controller 
+          left_wheel_effort_controller 
+          joint_state_controller
+          base_right_leg1_controller
+          base_left_leg1_controller
+          right_leg1_leg2_controller
+          "/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/wheel_leg/joint_states" />
+  </node>
+  <!-- convert ground trouth odom to tf -->
+  <node name="odom_to_tf" pkg="wheel_leg" type="odom_topic_to_tf.py" >
+    <param name="~odom_name" value="/ground_truth/state" />
+    <param name="~static_frame" value="world" />
+    <param name="~goal_frame" value="base_footprint" />
+  </node>
+  <!-- balance state listerner -->
+  <node name="balance_observer" pkg="wheel_leg" type="balance_observer.py" >
+    <param name="~imu_topic" value="/imu" />
+    <param name="~odom_topic" value="/ground_truth/state" />
+    <param name="~encoder1_topic" value="/wheel_leg/joint_states" />
+    <param name="~encoder2_topic" value="/wheel_leg/joint_states" />
+    <param name="~wheel_distance" value="0.236" />
+    <param name="~wheel_radius" value="0.04" />
+  </node>
+  <!-- Rviz -->
+  <!-- <node
+  name="rviz"
+  pkg="rviz"
+  type="rviz"
+  args="-d $(find wheel_leg)/urdf/urdf.rviz" /> -->
+
+
+</launch>

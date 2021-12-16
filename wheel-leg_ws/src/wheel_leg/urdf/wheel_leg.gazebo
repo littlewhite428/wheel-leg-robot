@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<robot>
+
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/wheel_leg</robotNamespace>
+      <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+    </plugin>
+  </gazebo>
+
+  <!-- base_footprint -->
+  <gazebo reference="base_footprint">
+	  <turnGravityOff>true</turnGravityOff>
+  </gazebo>
+  <!-- base_link -->
+  <gazebo reference="base_link">
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <!-- link_right_leg1 -->
+  <gazebo reference="link_right_leg1">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- link_right_leg2 -->
+  <gazebo reference="link_right_leg2">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- link_right_wheel -->
+  <gazebo reference="link_right_wheel">
+    <mu1>100</mu1>
+    <mu2>100</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <minDepth>0.0001</minDepth>
+    <!-- <maxVel>10</maxVel>   -->
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- link_left_leg1 -->
+  <gazebo reference="link_left_leg1">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- link_left_leg2 -->
+  <gazebo reference="link_left_leg2">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <!-- link_left_wheel -->
+  <gazebo reference="link_left_wheel">
+    <mu1>100</mu1>
+    <mu2>100</mu2>
+    <kp>100000</kp>
+    <kd>0.8</kd>
+    <minDepth>0.0001</minDepth>
+    <!-- <maxVel>10</maxVel>   -->
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- link_imu -->
+  <gazebo reference="imu_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>200</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>200.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <!-- <initialOrientationAsReference>false</initialOrientationAsReference> -->
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+  <!-- get ground truth odometry -->
+<gazebo>
+  <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>100.0</updateRate>
+    <bodyName>base_footprint</bodyName>
+    <topicName>ground_truth/state</topicName>
+    <gaussianNoise>0.01</gaussianNoise>
+    <frameName>world</frameName>
+    <xyzOffsets>0 0 0</xyzOffsets>
+    <rpyOffsets>0 0 0</rpyOffsets>
+  </plugin>
+</gazebo>
+
+</robot>
