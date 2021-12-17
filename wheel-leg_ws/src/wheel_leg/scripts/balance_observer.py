@@ -17,6 +17,7 @@ class balance_observer:
         self.fake_pusai = 0
         self.last_fake_pusai = 0
         self.fai = 0
+        self.last_fai = 0
         
         self.right_radps = 0
         self.last_right_radps = 0
@@ -42,7 +43,8 @@ class balance_observer:
         quaternion = [msg.orientation.x,msg.orientation.y,msg.orientation.z,msg.orientation.w]
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
         self.pitch = p
-        self.fai = msg.angular_velocity.y
+        self.fai = 0.1 * msg.angular_velocity.y + 0.9 * self.last_fai
+        self.last_fai = self.fai
 
         self.angle_publisher.publish(Float64(self.pitch))
         self.angular_velocity_publisher.publish(Float64(self.fai))
@@ -58,10 +60,10 @@ class balance_observer:
         # self.pusai_publisher.publish(Float64(self.fake_pusai))
 
     def encoder1_cb(self,msg):
-        self.right_radps = 0.3*msg.velocity[0]+(1-0.3)*self.last_right_radps
+        self.right_radps = 0.3*msg.velocity[5]+(1-0.3)*self.last_right_radps
         self.last_right_radps = self.right_radps
     def encoder2_cb(self,msg):
-        self.left_radps = 0.3*msg.velocity[1]+(1-0.3)*self.last_left_radps
+        self.left_radps = 0.3*msg.velocity[3]+(1-0.3)*self.last_left_radps
         self.last_left_radps = self.left_radps
     def publish(self):
         balance_msg = Balance()

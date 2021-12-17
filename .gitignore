@@ -52,5 +52,7 @@ qtcreator-*
 slprj/
 #vscode
 *.vscode/
+#plotjuggler_layout
+*plotjuggler_layout.xml
 # Catkin custom files
 CATKIN_IGNORE

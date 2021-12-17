@@ -8,12 +8,13 @@
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" ns="/wheel_leg" 
     args="
-          right_wheel_effort_controller 
-          left_wheel_effort_controller 
           joint_state_controller
           base_right_leg1_controller
-          base_left_leg1_controller
           right_leg1_leg2_controller
+          base_left_leg1_controller
+          left_leg1_leg2_controller
+          right_wheel_effort_controller
+          left_wheel_effort_controller
           "/>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
@@ -33,7 +34,7 @@
     <param name="~odom_topic" value="/ground_truth/state" />
     <param name="~encoder1_topic" value="/wheel_leg/joint_states" />
     <param name="~encoder2_topic" value="/wheel_leg/joint_states" />
-    <param name="~wheel_distance" value="0.236" />
+    <param name="~wheel_distance" value="0.22" />
     <param name="~wheel_radius" value="0.04" />
   </node>
   <!-- Rviz -->

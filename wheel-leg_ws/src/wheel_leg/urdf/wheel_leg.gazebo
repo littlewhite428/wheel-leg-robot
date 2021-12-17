@@ -1,41 +1,48 @@
 <?xml version="1.0"?>
-<robot>
+<robot name="wheel_leg" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/wheel_leg</robotNamespace>
-      <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
+
+
+  <!-- Joint 'implicitSpringDamper' setup-->
+  <xacro:macro name="joint_setup_block" params="joint_name">
+    <gazebo reference="${joint_name}">
+    <implicitSpringDamper>1</implicitSpringDamper>
+    </gazebo>
+  </xacro:macro>
+  <xacro:joint_setup_block joint_name="joint_base_right_leg1"/>
+  <xacro:joint_setup_block joint_name="joint_base_left_leg1"/>
+  <xacro:joint_setup_block joint_name="joint_right_leg1_leg2"/>
+  <xacro:joint_setup_block joint_name="joint_left_leg1_leg2"/>
+  <xacro:joint_setup_block joint_name="joint_right_leg2_wheel"/>
+  <xacro:joint_setup_block joint_name="joint_left_leg2_wheel"/>
+
+  <!-- Link setup-->
+  <xacro:macro name="link_setup_block" params="link_name">
+    <gazebo reference="${link_name}">
+      <kp>100000.0</kp>
+      <kd>0.8</kd>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <minDepth>0.0001</minDepth>
+    </gazebo>
+  </xacro:macro>
+  <xacro:link_setup_block link_name="base_link"/>
+  <xacro:link_setup_block link_name="link_right_leg1"/>
+  <xacro:link_setup_block link_name="link_right_leg2"/>
+  <xacro:link_setup_block link_name="link_left_leg1"/>
+  <xacro:link_setup_block link_name="link_left_leg2"/>
 
   <!-- base_footprint -->
   <gazebo reference="base_footprint">
 	  <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <!-- base_link -->
-  <gazebo reference="base_link">
-    <kp>100000</kp>
-    <kd>0.8</kd>
-    <material>Gazebo/Orange</material>
-  </gazebo>
-
-  <!-- link_right_leg1 -->
-  <gazebo reference="link_right_leg1">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <kp>100000</kp>
-    <kd>0.8</kd>
-    <material>Gazebo/Gray</material>
-  </gazebo>
-
-  <!-- link_right_leg2 -->
-  <gazebo reference="link_right_leg2">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <kp>100000</kp>
-    <kd>0.8</kd>
-    <material>Gazebo/Gray</material>
   </gazebo>
 
   <!-- link_right_wheel -->
@@ -49,26 +56,9 @@
     <material>Gazebo/Black</material>
   </gazebo>
 
-  <!-- link_left_leg1 -->
-  <gazebo reference="link_left_leg1">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <kp>100000</kp>
-    <kd>0.8</kd>
-    <material>Gazebo/Gray</material>
-  </gazebo>
-
-  <!-- link_left_leg2 -->
-  <gazebo reference="link_left_leg2">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <kp>100000</kp>
-    <kd>0.8</kd>
-    <material>Gazebo/Gray</material>
-  </gazebo>
-
   <!-- link_left_wheel -->
   <gazebo reference="link_left_wheel">
+    
     <mu1>100</mu1>
     <mu2>100</mu2>
     <kp>100000</kp>
