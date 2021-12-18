@@ -23,6 +23,7 @@ class balance_observer:
         self.last_right_radps = 0
         self.left_radps = 0
         self.last_left_radps = 0
+        self.last_pitch = 0
 
         self.L = L
         self.radps_to_mps =  Wheel_Radius # r/s to m/s Radius=0.04m
@@ -42,7 +43,8 @@ class balance_observer:
     def imu_cb(self,msg):
         quaternion = [msg.orientation.x,msg.orientation.y,msg.orientation.z,msg.orientation.w]
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
-        self.pitch = p
+        self.pitch = 0.1 * p + 0.9 * self.last_pitch
+        self.last_pitch = self.pitch
         self.fai = 0.1 * msg.angular_velocity.y + 0.9 * self.last_fai
         self.last_fai = self.fai
 
@@ -55,7 +57,7 @@ class balance_observer:
         # problem here
         symbo = 1 if (self.right_radps + self.left_radps) > 0 else -1
         self.fake_velocity = symbo * math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
-        self.fake_pusai = 0.7*msg.twist.twist.angular.z + (1-0.7) * self.last_fake_pusai
+        self.fake_pusai = 0.1*msg.twist.twist.angular.z + (1-0.1) * self.last_fake_pusai
         self.last_fake_pusai = self.fake_pusai
         # self.pusai_publisher.publish(Float64(self.fake_pusai))
 
@@ -81,7 +83,8 @@ class balance_observer:
         balance_msg.velocity = self.fake_velocity
 
         self.velocity_publisher.publish(Float64(self.radps_to_mps * (self.left_radps + self.right_radps) / 2))
-        self.pusai_publisher.publish(Float64(self.radps_to_mps * (self.right_radps - self.left_radps) / self.L))
+        # self.pusai_publisher.publish(Float64(self.radps_to_mps * (self.right_radps - self.left_radps) / self.L))
+        self.pusai_publisher.publish(self.fake_pusai)
         self.balance_state_publisher.publish(balance_msg)
         
 def main():

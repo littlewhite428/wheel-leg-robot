@@ -1,29 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <root version="2.3.8">
- <tabbed_widget name="Main Window" parent="main_window">
-  <plotmatrix columns="2" tab_name="plot" rows="2">
-   <plot row="0" style="Lines" col="0">
-    <range right="8.880000" left="3.880000" bottom="-0.396335" top="-0.196335"/>
+ <tabbed_widget parent="main_window" name="Main Window">
+  <plotmatrix tab_name="plot" columns="2" rows="3">
+   <plot style="Lines" row="0" col="0">
+    <range bottom="-0.005189" top="0.007530" left="166.842000" right="171.842000"/>
     <limitY/>
-    <curve R="31" name="/wheel_leg/joint_states/joint_base_right_leg1/position" B="180" G="119" custom_transform="noTransform"/>
+    <curve B="207" R="23" G="190" name="/balance_state_angle/data" custom_transform="noTransform"/>
+    <curve B="34" R="188" G="189" name="/balance_state_angular/data" custom_transform="noTransform"/>
     <transform value="noTransform"/>
    </plot>
-   <plot row="1" style="Lines" col="0">
-    <range right="8.880000" left="3.880000" bottom="-0.143982" top="0.056018"/>
+   <plot style="Lines" row="1" col="0">
+    <range bottom="-0.275586" top="-0.227873" left="166.852000" right="171.844000"/>
     <limitY/>
-    <curve R="214" name="/wheel_leg/joint_states/joint_base_right_leg1/effort" B="40" G="39" custom_transform="noTransform"/>
+    <curve B="193" R="241" G="76" name="/wheel_leg/left_wheel_effort_controller/command/data" custom_transform="noTransform"/>
+    <curve B="189" R="148" G="103" name="/wheel_leg/right_wheel_effort_controller/command/data" custom_transform="noTransform"/>
     <transform value="noTransform"/>
    </plot>
-   <plot row="0" style="Lines" col="1">
-    <range right="8.880000" left="3.880000" bottom="0.196352" top="0.396352"/>
+   <plot style="Lines" row="2" col="0">
+    <range bottom="-2.880450" top="-2.114311" left="166.840000" right="171.840000"/>
     <limitY/>
-    <curve R="255" name="/wheel_leg/joint_states/joint_right_leg1_leg2/position" B="14" G="127" custom_transform="noTransform"/>
+    <curve B="56" R="26" G="201" name="/wheel_leg/joint_states/joint_right_leg2_wheel/velocity" custom_transform="noTransform"/>
     <transform value="noTransform"/>
    </plot>
-   <plot row="1" style="Lines" col="1">
-    <range right="8.880000" left="3.880000" bottom="-0.100000" top="0.100000"/>
+   <plot style="Lines" row="0" col="1">
+    <range bottom="-0.005568" top="0.009290" left="166.843000" right="171.842000"/>
     <limitY/>
-    <curve R="26" name="/wheel_leg/joint_states/joint_right_leg1_leg2/effort" B="56" G="201" custom_transform="noTransform"/>
+    <curve B="180" R="31" G="119" name="/balance_state_pusai/data" custom_transform="noTransform"/>
+    <transform value="noTransform"/>
+   </plot>
+   <plot style="Lines" row="1" col="1">
+    <range bottom="-0.200000" top="0.200000" left="166.843000" right="171.842000"/>
+    <limitY min="-0.2" max="0.2"/>
+    <curve B="40" R="214" G="39" name="/balance_state_velocity/data" custom_transform="noTransform"/>
+    <transform value="noTransform"/>
+   </plot>
+   <plot style="Lines" row="2" col="1">
+    <range bottom="-2.918616" top="-2.166671" left="166.840000" right="171.840000"/>
+    <limitY/>
+    <curve B="14" R="255" G="127" name="/wheel_leg/joint_states/joint_left_leg2_wheel/velocity" custom_transform="noTransform"/>
     <transform value="noTransform"/>
    </plot>
   </plotmatrix>
@@ -49,8 +63,8 @@
    <discard_large_arrays value="true"/>
    <max_array_size value="100"/>
   </plugin>
-  <plugin ID="ROS /rosout Visualization" status="idle"/>
-  <plugin ID="ROS Topic Re-Publisher" status="idle"/>
+  <plugin status="idle" ID="ROS /rosout Visualization"/>
+  <plugin status="idle" ID="ROS Topic Re-Publisher"/>
  </Plugins>
  <!-- - - - - - - - - - - - - - - -->
  <previouslyLoaded_Datafiles/>

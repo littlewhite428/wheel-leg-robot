@@ -114,9 +114,9 @@
     <limit
       lower="-1.7"
       upper="1.7"
-      effort="50"
-      velocity="100" />
-    <dynamics damping="0.1" friction="0.1"/>
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
   </joint>
   <link
     name="link_right_leg2">
@@ -173,9 +173,9 @@
     <limit
       lower="-1.7"
       upper="1.7"
-      effort="50"
-      velocity="100" />
-    <dynamics damping="0.1" friction="0.1"/>
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
   </joint>
   <link
     name="link_right_wheel">
@@ -287,9 +287,9 @@
     <limit
       lower="-1.7"
       upper="1.7"
-      effort="50"
-      velocity="100" />
-    <dynamics damping="0.1" friction="0.1"/>
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
   </joint>
   <link
     name="link_left_leg2">
@@ -346,9 +346,9 @@
     <limit
       lower="-1.7"
       upper="1.7"
-      effort="50"
-      velocity="100" />
-    <dynamics damping="0.1" friction="0.1"/>
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
   </joint>
   <link
     name="link_left_wheel">
@@ -409,7 +409,7 @@
     <axis rpy="0 0 0" xyz="0 0 0"/>
     <parent link="base_link"/>
     <child link="imu_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
 
   <transmission name="tran_right_wheel">

@@ -26,8 +26,8 @@ sys1 = ss(A,B,C,D);
 rank(ctrb(A,B))
 
 % LQR
-Q=diag([50,150,30,10]);R=diag([1,1]);
-[K,S_tmp,E_tmp] = lqr(sys1.A,sys1.B,Q,R)
+% Q=diag([50,150,30,10]);R=diag([1,1]);
+% [K,S_tmp,E_tmp] = lqr(sys1.A,sys1.B,Q,R)
 
 % sys_d = c2d(sys1,Ts)
 % dlqr(sys_d.A,sys_d.B,Q,R)
@@ -45,5 +45,12 @@ B_s = [B;-b_c*D];
 Q_s = diag([50,100,20,10,50,50]);R_s=diag([1,1]);
 [KK,S_tmp,E_tmp] = lqr(A_s,B_s,Q_s,R_s)
 
-K=KK(:,1:4)
-K_c = -KK(:,5:6)
+K=KK(:,1:4);
+K_c = -KK(:,5:6);
+
+K_c = K_c / 3
+K = K / 1.8
+%   -17.1384   -5.3649   -3.5415    1.1348
+%   -17.1384   -5.3649   -3.5415   -1.1348
+%    -2.5000    2.5000
+%    -2.5000   -2.5000
