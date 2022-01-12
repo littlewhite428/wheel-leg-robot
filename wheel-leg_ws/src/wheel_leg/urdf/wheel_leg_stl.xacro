@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://wheel_leg/meshes2/base_link.STL" />
+          filename="package://wheel_leg/meshes2/base_link.STL" /> 
       </geometry>
       <material
         name="">
@@ -53,8 +53,7 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/base_link.STL" />
+        <box size="0.12 0.200 0.040"/> 
       </geometry>
     </collision>
   </link>
@@ -91,11 +90,10 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0.065 0.0 0.004"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_right_leg1.STL" />
+        <box size="0.14 0.015 0.0080"/> 
       </geometry>
     </collision>
   </link>
@@ -150,11 +148,10 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0.065 0.0 -0.004"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_right_leg2.STL" />
+        <box size="0.14 0.015 0.0080"/> 
       </geometry>
     </collision>
   </link>
@@ -210,10 +207,11 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="1.57 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_right_wheel.STL" />
+        <!-- <mesh
+          filename="package://wheel_leg/meshes2/link_right_wheel.STL" /> -->
+        <cylinder length="0.02" radius="0.04"/>
       </geometry>
     </collision>
   </link>
@@ -264,11 +262,10 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0.065 0.0 -0.004"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_left_leg1.STL" />
+        <box size="0.14 0.015 0.0080"/> 
       </geometry>
     </collision>
   </link>
@@ -323,11 +320,10 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0.065 0.0 0.004"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_left_leg2.STL" />
+        <box size="0.14 0.015 0.0080"/> 
       </geometry>
     </collision>
   </link>
@@ -383,10 +379,11 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="1.57 0 0" />
       <geometry>
-        <mesh
-          filename="package://wheel_leg/meshes2/link_left_wheel.STL" />
+      <cylinder length="0.02" radius="0.04"/>
+        <!-- <mesh
+          filename="package://wheel_leg/meshes2/link_left_wheel.STL" /> -->
       </geometry>
     </collision>
   </link>
@@ -412,70 +409,24 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
 
-  <transmission name="tran_right_wheel">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_right_leg2_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_right_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
 
-  <transmission name="tran_left_wheel">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_left_leg2_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_left_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
+  <xacro:macro name="transmission_block" params="joint_name">
+    <transmission name="trans1">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint_name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor1">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
 
-  <transmission name="tran_base_right_leg1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_base_right_leg1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_base_right_leg1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran_base_left_leg1">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_base_left_leg1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_base_left_leg1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran_right_leg1_leg2">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_right_leg1_leg2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_right_leg1_leg2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="tran_left_leg1_leg2">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_left_leg1_leg2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor_left_leg1_leg2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
+  <xacro:transmission_block joint_name="joint_base_right_leg1"/>
+  <xacro:transmission_block joint_name="joint_base_left_leg1"/>
+  <xacro:transmission_block joint_name="joint_right_leg1_leg2"/>
+  <xacro:transmission_block joint_name="joint_left_leg1_leg2"/>
+  <xacro:transmission_block joint_name="joint_left_leg2_wheel"/>
+  <xacro:transmission_block joint_name="joint_right_leg2_wheel"/>
 </robot>
