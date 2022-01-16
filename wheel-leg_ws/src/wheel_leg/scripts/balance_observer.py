@@ -62,10 +62,10 @@ class balance_observer:
         # self.pusai_publisher.publish(Float64(self.fake_pusai))
 
     def encoder1_cb(self,msg):
-        self.right_radps = 0.3*msg.velocity[5]+(1-0.3)*self.last_right_radps
+        self.right_radps = 0.3*msg.velocity[0]+(1-0.3)*self.last_right_radps
         self.last_right_radps = self.right_radps
     def encoder2_cb(self,msg):
-        self.left_radps = 0.3*msg.velocity[3]+(1-0.3)*self.last_left_radps
+        self.left_radps = 0.3*msg.velocity[1]+(1-0.3)*self.last_left_radps
         self.last_left_radps = self.left_radps
     def publish(self):
         balance_msg = Balance()

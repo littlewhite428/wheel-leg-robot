@@ -9,10 +9,6 @@
     output="screen" ns="/wheel_leg" 
     args="
           joint_state_controller
-          base_right_leg1_controller
-          right_leg1_leg2_controller
-          base_left_leg1_controller
-          left_leg1_leg2_controller
           right_wheel_effort_controller
           left_wheel_effort_controller
           "/>
