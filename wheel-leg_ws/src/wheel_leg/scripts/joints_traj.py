@@ -47,7 +47,9 @@ class joint_linear_traj():
                 self.joint_states[each_name] = msg.position[i]
     # set goal value
     def fsm_state_cb(self,msg):
-        name = ['joint_base_left_leg1', 'joint_base_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2']
+        if not self.state == FSM_STATE.IDLE:
+            return
+        name = ['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2']
         if msg.data == 1.0:
             value = [-0.5236, -0.5236, 1.0472, 1.0472]
         else:
@@ -79,7 +81,7 @@ class joint_linear_traj():
             for each_name in self.joint_names:
                 self.goal_pub[each_name].publish(Float64(self.commands[each_name][self.cnt]))
             self.cnt = self.cnt + 1
-            if self.cnt == 10:
+            if self.cnt == self.queue_size:
                 self.cnt = 0
                 self.state = FSM_STATE.IDLE
         else:
@@ -88,7 +90,7 @@ class joint_linear_traj():
 def main():
     rospy.init_node('traj')
     r = 10
-    linear_traj = joint_linear_traj(4,['joint_base_left_leg1', 'joint_base_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2'],r,10)
+    linear_traj = joint_linear_traj(4,['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2'],r,30)
     rat = rospy.Rate(r)
     while not rospy.is_shutdown():
         linear_traj.fsm_loop()

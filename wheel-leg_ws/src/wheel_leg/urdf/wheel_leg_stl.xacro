@@ -58,6 +58,58 @@
     </collision>
   </link>
   <!-- right -->
+    <link
+    name="link_right_hip">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.01" />
+      <inertia
+        ixx="1E-5"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="1E-5"
+        iyz="0.0"
+        izz="1E-5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_base_right_hip"
+    type="revolute">
+    <origin
+      xyz="0 -0.1 0"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_right_hip" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.524"
+      upper="1.7"
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
+  </joint>
   <link
     name="link_right_leg1">
     <inertial>
@@ -98,13 +150,13 @@
     </collision>
   </link>
   <joint
-    name="joint_base_right_leg1"
+    name="joint_right_hip_right_leg1"
     type="revolute">
     <origin
-      xyz="0 -0.1 0"
-      rpy="1.5708 1.5708 0" />
+      xyz="0 0 0"
+      rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="link_right_hip" />
     <child
       link="link_right_leg1" />
     <axis
@@ -209,8 +261,6 @@
         xyz="0 0 0"
         rpy="1.57 0 0" />
       <geometry>
-        <!-- <mesh
-          filename="package://wheel_leg/meshes2/link_right_wheel.STL" /> -->
         <cylinder length="0.02" radius="0.04"/>
       </geometry>
     </collision>
@@ -230,6 +280,58 @@
     <dynamics damping="0.1" friction="0.0"/>
   </joint>
   <!-- left -->
+  <link
+    name="link_left_hip">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.01" />
+      <inertia
+        ixx="1E-5"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="1E-5"
+        iyz="0.0"
+        izz="1E-5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_base_left_hip"
+    type="revolute">
+    <origin
+      xyz="0 0.1 0"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_left_hip" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.524"
+      upper="1.7"
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="100.0"/>
+  </joint>
   <link
     name="link_left_leg1">
     <inertial>
@@ -270,13 +372,13 @@
     </collision>
   </link>
   <joint
-    name="joint_base_left_leg1"
+    name="joint_left_hip_left_leg1"
     type="revolute">
     <origin
-      xyz="0 0.1 0"
-      rpy="1.5708 1.5708 0" />
+      xyz="0 0 0"
+      rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="link_left_hip" />
     <child
       link="link_left_leg1" />
     <axis
@@ -423,8 +525,10 @@
     </transmission>
   </xacro:macro>
 
-  <xacro:transmission_block joint_name="joint_base_right_leg1"/>
-  <xacro:transmission_block joint_name="joint_base_left_leg1"/>
+  <xacro:transmission_block joint_name="joint_base_right_hip"/>
+  <xacro:transmission_block joint_name="joint_right_hip_right_leg1"/>
+  <xacro:transmission_block joint_name="joint_base_left_hip"/>
+  <xacro:transmission_block joint_name="joint_left_hip_left_leg1"/>
   <xacro:transmission_block joint_name="joint_right_leg1_leg2"/>
   <xacro:transmission_block joint_name="joint_left_leg1_leg2"/>
   <xacro:transmission_block joint_name="joint_left_leg2_wheel"/>

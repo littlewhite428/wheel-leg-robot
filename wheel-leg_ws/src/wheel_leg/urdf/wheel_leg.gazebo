@@ -17,8 +17,10 @@
     <implicitSpringDamper>1</implicitSpringDamper>
     </gazebo>
   </xacro:macro>
-  <xacro:joint_setup_block joint_name="joint_base_right_leg1"/>
-  <xacro:joint_setup_block joint_name="joint_base_left_leg1"/>
+  <xacro:joint_setup_block joint_name="joint_base_right_hip"/>
+  <xacro:joint_setup_block joint_name="joint_right_hip_right_leg1"/>
+  <xacro:joint_setup_block joint_name="joint_base_left_hip"/>
+  <xacro:joint_setup_block joint_name="joint_left_hip_left_leg1"/>
   <xacro:joint_setup_block joint_name="joint_right_leg1_leg2"/>
   <xacro:joint_setup_block joint_name="joint_left_leg1_leg2"/>
   <xacro:joint_setup_block joint_name="joint_right_leg2_wheel"/>
@@ -39,7 +41,8 @@
   <xacro:link_setup_block link_name="link_right_leg2"/>
   <xacro:link_setup_block link_name="link_left_leg1"/>
   <xacro:link_setup_block link_name="link_left_leg2"/>
-
+  <xacro:link_setup_block link_name="link_left_hip"/>
+  <xacro:link_setup_block link_name="link_left_hip"/>
   <!-- base_footprint -->
   <gazebo reference="base_footprint">
 	  <turnGravityOff>true</turnGravityOff>

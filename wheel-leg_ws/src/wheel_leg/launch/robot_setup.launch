@@ -9,9 +9,11 @@
     output="screen" ns="/wheel_leg" 
     args="
           joint_state_controller
-          base_right_leg1_controller
+          base_right_hip_controller
+          right_hip_right_leg1_controller
           right_leg1_leg2_controller
-          base_left_leg1_controller
+          base_left_hip_controller
+          left_hip_left_leg1_controller
           left_leg1_leg2_controller
           right_wheel_effort_controller
           left_wheel_effort_controller
@@ -36,6 +38,8 @@
     <param name="~encoder2_topic" value="/wheel_leg/joint_states" />
     <param name="~wheel_distance" value="0.22" />
     <param name="~wheel_radius" value="0.04" />
+  </node>
+    <node name="joints_traj" pkg="wheel_leg" type="joints_traj.py" >
   </node>
   <!-- Rviz -->
   <!-- <node
