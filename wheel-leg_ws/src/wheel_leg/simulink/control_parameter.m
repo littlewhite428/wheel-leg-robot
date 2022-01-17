@@ -42,7 +42,7 @@ sys_c_d = c2d(sys_c,Ts);
 
 A_s = [A  zeros(4,2);-b_c*C A_c];
 B_s = [B;-b_c*D];
-Q_s = diag([20,50,20,10,50,50]);R_s=diag([1,1]);
+Q_s = diag([50,10,20,10,50,50]);R_s=diag([1,1]);
 [KK,S_tmp,E_tmp] = lqr(A_s,B_s,Q_s,R_s)
 
 K=KK(:,1:4)
