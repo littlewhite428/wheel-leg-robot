@@ -41,6 +41,7 @@ class balance_observer:
 
 
     def imu_cb(self,msg):
+        global balance_msg
         quaternion = [msg.orientation.x,msg.orientation.y,msg.orientation.z,msg.orientation.w]
         r,p,y = tf.transformations.euler_from_quaternion(quaternion,axes='sxyz')
         self.pitch = 0.1 * p + 0.9 * self.last_pitch
@@ -50,39 +51,42 @@ class balance_observer:
 
         self.angle_publisher.publish(Float64(self.pitch))
         self.angular_velocity_publisher.publish(Float64(self.fai))
+        balance_msg.pitch = p
+        balance_msg.fai = msg.angular_velocity.y
     '''
     odom velocity and angular velocity both in world frame
     '''
     def odoom_cb(self,msg):
+        global balance_msg
         # problem here
         symbo = 1 if (self.right_radps + self.left_radps) > 0 else -1
         self.fake_velocity = symbo * math.sqrt(msg.twist.twist.linear.x**2 + msg.twist.twist.linear.y**2)
         self.fake_pusai = 0.1*msg.twist.twist.angular.z + (1-0.1) * self.last_fake_pusai
         self.last_fake_pusai = self.fake_pusai
         # self.pusai_publisher.publish(Float64(self.fake_pusai))
+        balance_msg.pusai = msg.twist.twist.angular.z
 
     def encoder1_cb(self,msg):
+        global balance_msg
         self.right_radps = 0.3*msg.velocity[0]+(1-0.3)*self.last_right_radps
         self.last_right_radps = self.right_radps
+        balance_msg.velocity = msg.velocity[0]
     def encoder2_cb(self,msg):
         self.left_radps = 0.3*msg.velocity[1]+(1-0.3)*self.last_left_radps
         self.last_left_radps = self.left_radps
     def publish(self):
-        balance_msg = Balance()
+        global balance_msg
         header = Header()
         header.frame_id = "base_footprint"
         header.stamp = rospy.get_rostime()
-
         balance_msg.header = header
-        balance_msg.pitch = self.pitch
-        balance_msg.fai = self.fai
-        # balance_msg.pusai = self.radps_to_mps * (self.right_radps - self.left_radps) / self.L
-        # balance_msg.velocity = self.radps_to_mps * (self.left_radps + self.right_radps) / 2
-
-        balance_msg.pusai = self.fake_pusai
-        balance_msg.velocity = self.fake_velocity
-
-        self.velocity_publisher.publish(Float64(self.radps_to_mps * (self.left_radps + self.right_radps) / 2))
+        # balance_msg.pitch = self.pitch
+        # balance_msg.fai = self.fai
+        # balance_msg.pusai = self.fake_pusai
+        # balance_msg.velocity = self.fake_velocity
+        
+        self.velocity = self.radps_to_mps * (self.left_radps + self.right_radps) / 2
+        self.velocity_publisher.publish(Float64(self.velocity))
         # self.pusai_publisher.publish(Float64(self.radps_to_mps * (self.right_radps - self.left_radps) / self.L))
         self.pusai_publisher.publish(self.fake_pusai)
         self.balance_state_publisher.publish(balance_msg)
@@ -127,6 +131,9 @@ def main():
     while not rospy.is_shutdown():
         rat.sleep()
         obs.publish()
+
+
+balance_msg = Balance()
 
 if __name__ == "__main__":
     main()
