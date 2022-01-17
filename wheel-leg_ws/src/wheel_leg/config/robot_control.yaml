@@ -18,7 +18,7 @@ wheel_leg:
   base_right_hip_controller:
     type: effort_controllers/JointPositionController
     joint: joint_base_right_hip
-    pid: {p: 30, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
+    pid: {p: 300, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
   
   right_hip_right_leg1_controller:
     type: effort_controllers/JointPositionController
@@ -28,19 +28,29 @@ wheel_leg:
   base_left_hip_controller:
     type: effort_controllers/JointPositionController
     joint: joint_base_left_hip
-    pid: {p: 30, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
+    pid: {p: 300, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
 
   left_hip_left_leg1_controller:
     type: effort_controllers/JointPositionController
     joint: joint_left_hip_left_leg1
     pid: {p: 30, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
 
-  right_leg1_leg2_controller:
+  right_leg1_knee_controller:
     type: effort_controllers/JointPositionController
-    joint: joint_right_leg1_leg2
+    joint: joint_right_leg1_knee
+    pid: {p: 300, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
+
+  right_knee_leg2_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_right_knee_leg2
     pid: {p: 30, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
 
-  left_leg1_leg2_controller:
+  left_leg1_knee_controller:
     type: effort_controllers/JointPositionController
-    joint: joint_left_leg1_leg2
+    joint: joint_left_leg1_knee
+    pid: {p: 300, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}
+
+  left_knee_leg2_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_left_knee_leg2
     pid: {p: 30, i: 2.5, d: 0.0, i_clamp_min: -10.0,i_clamp_max: 10.0,antiwindup: true}

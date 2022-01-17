@@ -108,7 +108,7 @@
       upper="1.7"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_right_leg1">
@@ -166,7 +166,59 @@
       upper="1.7"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
+  </joint>
+  <link
+    name="link_right_knee">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.01" />
+      <inertia
+        ixx="1E-5"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="1E-5"
+        iyz="0.0"
+        izz="1E-5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_right_leg1_knee"
+    type="revolute">
+    <origin
+      xyz="0.13 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_right_leg1" />
+    <child
+      link="link_right_knee" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.7"
+      upper="1.7"
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_right_leg2">
@@ -208,13 +260,13 @@
     </collision>
   </link>
   <joint
-    name="joint_right_leg1_leg2"
+    name="joint_right_knee_leg2"
     type="revolute">
     <origin
-      xyz="0.13 0 0"
+      xyz="0.0 0 0"
       rpy="0 0 0" />
     <parent
-      link="link_right_leg1" />
+      link="link_right_knee" />
     <child
       link="link_right_leg2" />
     <axis
@@ -224,7 +276,7 @@
       upper="2.4"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_right_wheel">
@@ -330,7 +382,7 @@
       upper="1.7"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_left_leg1">
@@ -388,7 +440,59 @@
       upper="1.7"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
+  </joint>
+  <link
+    name="link_left_knee">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.01" />
+      <inertia
+        ixx="1E-5"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="1E-5"
+        iyz="0.0"
+        izz="1E-5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <sphere radius = "0.005"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_left_leg1_knee"
+    type="revolute">
+    <origin
+      xyz="0.13 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_left_leg1" />
+    <child
+      link="link_left_knee" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.7"
+      upper="1.7"
+      effort="100"
+      velocity="25" />
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_left_leg2">
@@ -430,13 +534,13 @@
     </collision>
   </link>
   <joint
-    name="joint_left_leg1_leg2"
+    name="joint_left_knee_leg2"
     type="revolute">
     <origin
-      xyz="0.13 0 0"
+      xyz="0.0 0 0"
       rpy="0 0 0" />
     <parent
-      link="link_left_leg1" />
+      link="link_left_knee" />
     <child
       link="link_left_leg2" />
     <axis
@@ -446,7 +550,7 @@
       upper="2.4"
       effort="100"
       velocity="25" />
-    <dynamics damping="0.7" friction="100.0"/>
+    <dynamics damping="0.7" friction="1.0"/>
   </joint>
   <link
     name="link_left_wheel">
@@ -483,9 +587,7 @@
         xyz="0 0 0"
         rpy="1.57 0 0" />
       <geometry>
-      <cylinder length="0.02" radius="0.04"/>
-        <!-- <mesh
-          filename="package://wheel_leg/meshes2/link_left_wheel.STL" /> -->
+        <cylinder length="0.02" radius="0.04"/>
       </geometry>
     </collision>
   </link>
@@ -529,8 +631,10 @@
   <xacro:transmission_block joint_name="joint_right_hip_right_leg1"/>
   <xacro:transmission_block joint_name="joint_base_left_hip"/>
   <xacro:transmission_block joint_name="joint_left_hip_left_leg1"/>
-  <xacro:transmission_block joint_name="joint_right_leg1_leg2"/>
-  <xacro:transmission_block joint_name="joint_left_leg1_leg2"/>
+  <xacro:transmission_block joint_name="joint_right_leg1_knee"/>
+  <xacro:transmission_block joint_name="joint_right_knee_leg2"/>
+  <xacro:transmission_block joint_name="joint_left_leg1_knee"/>
+  <xacro:transmission_block joint_name="joint_left_knee_leg2"/>
   <xacro:transmission_block joint_name="joint_left_leg2_wheel"/>
   <xacro:transmission_block joint_name="joint_right_leg2_wheel"/>
 </robot>

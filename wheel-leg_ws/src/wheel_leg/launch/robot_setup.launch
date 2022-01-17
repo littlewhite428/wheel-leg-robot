@@ -11,10 +11,12 @@
           joint_state_controller
           base_right_hip_controller
           right_hip_right_leg1_controller
-          right_leg1_leg2_controller
+          right_leg1_knee_controller
+          right_knee_leg2_controller
           base_left_hip_controller
           left_hip_left_leg1_controller
-          left_leg1_leg2_controller
+          left_leg1_knee_controller
+          left_knee_leg2_controller
           right_wheel_effort_controller
           left_wheel_effort_controller
           "/>

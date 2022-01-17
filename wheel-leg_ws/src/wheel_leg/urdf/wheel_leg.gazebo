@@ -21,8 +21,10 @@
   <xacro:joint_setup_block joint_name="joint_right_hip_right_leg1"/>
   <xacro:joint_setup_block joint_name="joint_base_left_hip"/>
   <xacro:joint_setup_block joint_name="joint_left_hip_left_leg1"/>
-  <xacro:joint_setup_block joint_name="joint_right_leg1_leg2"/>
-  <xacro:joint_setup_block joint_name="joint_left_leg1_leg2"/>
+  <xacro:joint_setup_block joint_name="joint_right_leg1_knee"/>
+  <xacro:joint_setup_block joint_name="joint_right_knee_leg2"/>
+  <xacro:joint_setup_block joint_name="joint_left_leg1_knee"/>
+  <xacro:joint_setup_block joint_name="joint_left_knee_leg2"/>
   <xacro:joint_setup_block joint_name="joint_right_leg2_wheel"/>
   <xacro:joint_setup_block joint_name="joint_left_leg2_wheel"/>
 
@@ -42,7 +44,9 @@
   <xacro:link_setup_block link_name="link_left_leg1"/>
   <xacro:link_setup_block link_name="link_left_leg2"/>
   <xacro:link_setup_block link_name="link_left_hip"/>
-  <xacro:link_setup_block link_name="link_left_hip"/>
+  <xacro:link_setup_block link_name="link_right_hip"/>
+  <xacro:link_setup_block link_name="link_left_knee"/>
+  <xacro:link_setup_block link_name="link_right_knee"/>
   <!-- base_footprint -->
   <gazebo reference="base_footprint">
 	  <turnGravityOff>true</turnGravityOff>
@@ -50,8 +54,8 @@
 
   <!-- link_right_wheel -->
   <gazebo reference="link_right_wheel">
-    <mu1>1</mu1>
-    <mu2>1</mu2>
+    <mu1>100</mu1>
+    <mu2>100</mu2>
     <kp>10000000.0</kp>
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>
@@ -61,8 +65,8 @@
 
   <!-- link_left_wheel -->
   <gazebo reference="link_left_wheel">
-    <mu1>1</mu1>
-    <mu2>1</mu2>
+    <mu1>100</mu1>
+    <mu2>100</mu2>
     <kp>10000000.0</kp>
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>

@@ -49,7 +49,7 @@ class joint_linear_traj():
     def fsm_state_cb(self,msg):
         if not self.state == FSM_STATE.IDLE:
             return
-        name = ['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2']
+        name = ['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_knee_leg2', 'joint_right_knee_leg2']
         if msg.data == 1.0:
             value = [-0.5236, -0.5236, 1.0472, 1.0472]
         elif msg.data == 2.0:
@@ -92,7 +92,7 @@ class joint_linear_traj():
 def main():
     rospy.init_node('traj')
     r = 10
-    linear_traj = joint_linear_traj(4,['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2'],r,30)
+    linear_traj = joint_linear_traj(4,['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_knee_leg2', 'joint_right_knee_leg2'],r,30)
     rat = rospy.Rate(r)
     while not rospy.is_shutdown():
         linear_traj.fsm_loop()
