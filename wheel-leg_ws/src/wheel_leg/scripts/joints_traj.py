@@ -52,6 +52,8 @@ class joint_linear_traj():
         name = ['joint_left_hip_left_leg1', 'joint_right_hip_right_leg1', 'joint_left_leg1_leg2', 'joint_right_leg1_leg2']
         if msg.data == 1.0:
             value = [-0.5236, -0.5236, 1.0472, 1.0472]
+        elif msg.data == 2.0:
+            value = [-1.0472, -1.0472, 2.0944, 2.0944]
         else:
             value = [0.0, 0.0, 0.0, 0.0]
         # during_time = 2.0
