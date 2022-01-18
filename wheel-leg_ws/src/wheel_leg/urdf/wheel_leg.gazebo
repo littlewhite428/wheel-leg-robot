@@ -55,8 +55,8 @@
 
   <!-- link_right_wheel -->
   <gazebo reference="link_right_wheel">
-    <mu1>1</mu1>
-    <mu2>1</mu2>
+    <mu1>50</mu1>
+    <mu2>50</mu2>
     <kp>10000000.0</kp>
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>
@@ -66,8 +66,8 @@
 
   <!-- link_left_wheel -->
   <gazebo reference="link_left_wheel">
-    <mu1>1</mu1>
-    <mu2>1</mu2>
+    <mu1>50</mu1>
+    <mu2>50</mu2>
     <kp>10000000.0</kp>
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>

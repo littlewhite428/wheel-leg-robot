@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='ASCII'?>
+<sdf version="1.4">
+  <world name="AutoGen Terrain World">
+    <scene>
+      <ambient>120 120 120 255</ambient>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+        <time>12:00</time>
+      </sky>
+    </scene>
+    <include>
+      <uri>model://autogen_terrain</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+  </world>
+</sdf>
