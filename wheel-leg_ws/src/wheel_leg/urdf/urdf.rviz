@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /TF1
+        - /Map1
       Splitter Ratio: 0.5
     Tree Height: 775
   - Class: rviz/Selection
@@ -174,7 +174,9 @@ Visualization Manager:
           Value: true
         link_right_wheel:
           Value: true
-        world:
+        map:
+          Value: true
+        odom:
           Value: true
       Marker Scale: 0.300000012
       Name: TF
@@ -182,26 +184,27 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          base_footprint:
-            base_link:
-              imu_link:
-                {}
-              laser_mount_link:
-                laser:
+        map:
+          odom:
+            base_footprint:
+              base_link:
+                imu_link:
                   {}
-              link_left_hip:
-                link_left_leg1:
-                  link_left_knee:
-                    link_left_leg2:
-                      link_left_wheel:
-                        {}
-              link_right_hip:
-                link_right_leg1:
-                  link_right_knee:
-                    link_right_leg2:
-                      link_right_wheel:
-                        {}
+                laser_mount_link:
+                  laser:
+                    {}
+                link_left_hip:
+                  link_left_leg1:
+                    link_left_knee:
+                      link_left_leg2:
+                        link_left_wheel:
+                          {}
+                link_right_hip:
+                  link_right_leg1:
+                    link_right_knee:
+                      link_right_leg2:
+                        link_right_wheel:
+                          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -234,11 +237,21 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 0.699999988
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: world
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -259,25 +272,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.419497669
+      Distance: 67.1640778
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.352538168
-        Y: -0.336786211
-        Z: 1.99877608
+        X: 1.75185943
+        Y: -1.58206344
+        Z: 0.671874166
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.585397363
+      Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.79357028
+      Yaw: 3.18357325
     Saved: ~
 Window Geometry:
   Displays:

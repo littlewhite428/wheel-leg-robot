@@ -8,7 +8,7 @@
   <xacro:macro name="rplidarA2" params="name ros_topic">
     <xacro:sick_tim name="${name}" ros_topic="${ros_topic}"
       length="0.06" width="0.06" height="0.079" mass="0.150" z_offset="0.0"
-      min_range="0.1" max_range="8.0"
+      min_range="0.1" max_range="16.0"
       mesh="package://wheel_leg/meshes2/rplidar.dae" />
   </xacro:macro>
 

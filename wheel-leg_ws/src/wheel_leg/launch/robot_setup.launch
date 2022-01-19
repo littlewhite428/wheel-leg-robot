@@ -29,7 +29,7 @@
   <!-- convert ground trouth odom to tf -->
   <node name="odom_to_tf" pkg="wheel_leg" type="odom_topic_to_tf.py" >
     <param name="~odom_name" value="/ground_truth/state" />
-    <param name="~static_frame" value="world" />
+    <param name="~static_frame" value="odom" />
     <param name="~goal_frame" value="base_footprint" />
   </node>
   <!-- balance state listerner -->
