@@ -16,5 +16,5 @@
   </include>
 
   <!-- Move base -->
- <!-- <include file="$(find navigation_sim_demo)/launch/include/move_base.launch.xml"/> -->
+ <include file="$(find wheel_leg)/launch/move_base.launch.xml"/>
 </launch>
