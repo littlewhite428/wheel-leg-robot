@@ -13,6 +13,7 @@ class balance_observer:
     def __init__(self,imu_topic,odom_topic,encoder1_topic,encoder2_topic,L,Wheel_Radius):
         self.velocity = 0
         self.pitch = 0
+        self.roll = 0
         self.fake_velocity = 0
         self.fake_pusai = 0
         self.last_fake_pusai = 0
@@ -24,12 +25,14 @@ class balance_observer:
         self.left_radps = 0
         self.last_left_radps = 0
         self.last_pitch = 0
+        self.last_roll = 0
 
         self.L = L
         self.radps_to_mps =  Wheel_Radius # r/s to m/s Radius=0.04m
 
         self.velocity_publisher = rospy.Publisher('/balance_state_velocity',Float64,queue_size=10)
         self.angle_publisher = rospy.Publisher('/balance_state_angle',Float64,queue_size=10)
+        self.roll_publisher = rospy.Publisher('/balance_state_roll',Float64,queue_size=10)
         self.angular_velocity_publisher = rospy.Publisher('/balance_state_angular',Float64,queue_size=10)
         self.pusai_publisher = rospy.Publisher('/balance_state_pusai',Float64,queue_size=10)
         self.balance_state_publisher = rospy.Publisher('/balance_state',Balance,queue_size=10)
@@ -47,8 +50,11 @@ class balance_observer:
         self.last_pitch = self.pitch
         self.fai = 0.1 * msg.angular_velocity.y + 0.9 * self.last_fai
         self.last_fai = self.fai
+        self.roll = 0.1 * r + 0.9 * self.last_roll
+        self.last_roll = self.roll
 
         self.angle_publisher.publish(Float64(self.pitch))
+        self.roll_publisher.publish(Float64(self.roll))
         self.angular_velocity_publisher.publish(Float64(self.fai))
     '''
     odom velocity and angular velocity both in world frame

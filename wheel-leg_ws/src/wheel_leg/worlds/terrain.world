@@ -1,20 +1,398 @@
-<?xml version='1.0' encoding='ASCII'?>
-<sdf version="1.4">
-  <world name="AutoGen Terrain World">
+<sdf version='1.6'>
+  <world name='AutoGen Terrain World'>
     <scene>
       <ambient>120 120 120 255</ambient>
       <sky>
         <clouds>
           <speed>12</speed>
         </clouds>
-        <time>12:00</time>
+        <time>12</time>
       </sky>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
     </scene>
-    <include>
-      <uri>model://autogen_terrain</uri>
-    </include>
-    <include>
-      <uri>model://sun</uri>
-    </include>
+    <model name='AutoGen Terrain'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <heightmap>
+              <uri>model://autogen_terrain/materials/textures/heightmap.png</uri>
+              <size>129 129 12</size>
+              <pos>0 0 0</pos>
+              <texture>
+                <size>10</size>
+                <diffuse>__default__</diffuse>
+                <normal>__default__</normal>
+              </texture>
+              <blend>
+                <min_height>0</min_height>
+                <fade_dist>0</fade_dist>
+              </blend>
+            </heightmap>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <heightmap>
+              <texture>
+                <diffuse>model://autogen_terrain/materials/textures/water.jpg</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>5</size>
+              </texture>
+              <texture>
+                <diffuse>model://autogen_terrain/materials/textures/sand.jpg</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>5</size>
+              </texture>
+              <texture>
+                <diffuse>model://autogen_terrain/materials/textures/grass.jpg</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>5</size>
+              </texture>
+              <texture>
+                <diffuse>file://media/materials/textures/dirt_diffusespecular.png</diffuse>
+                <normal>file://media/materials/textures/flat_normal.png</normal>
+                <size>5</size>
+              </texture>
+              <blend>
+                <min_height>0</min_height>
+                <fade_dist>0.8</fade_dist>
+              </blend>
+              <blend>
+                <min_height>0.1</min_height>
+                <fade_dist>1.5</fade_dist>
+              </blend>
+              <blend>
+                <min_height>3</min_height>
+                <fade_dist>6</fade_dist>
+              </blend>
+              <uri>model://autogen_terrain/materials/textures/heightmap.png</uri>
+              <size>129 129 12</size>
+              <pos>0 0 0</pos>
+            </heightmap>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='cafe_table'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='surface'>
+          <pose frame=''>0 0 0.755 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.913 0.913 0.04</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='column'>
+          <pose frame=''>0 0 0.37 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.042 0.042 0.74</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='base'>
+          <pose frame=''>0 0 0.02 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.56 0.56 0.04</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://cafe_table/meshes/cafe_table.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>1.79096 -1.01674 0 0 -0 0</pose>
+    </model>
+    <model name='cafe_table_clone'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='surface'>
+          <pose frame=''>0 0 0.755 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.913 0.913 0.04</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='column'>
+          <pose frame=''>0 0 0.37 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.042 0.042 0.74</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='base'>
+          <pose frame=''>0 0 0.02 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.56 0.56 0.04</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://cafe_table/meshes/cafe_table.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>1.85098 -0.498196 0.458215 0.000853 -0.109778 -9.3e-05</pose>
+    </model>
+    <state world_name='AutoGen Terrain World'>
+      <sim_time>1658 870000000</sim_time>
+      <real_time>1662 401780325</real_time>
+      <wall_time>1645362276 966917733</wall_time>
+      <iterations>1658870</iterations>
+      <model name='AutoGen Terrain'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='cafe_table'>
+        <pose frame=''>0.637306 -0.648883 0.458215 0.000853 -0.109778 -9.3e-05</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.637306 -0.648883 0.458215 0.000853 -0.109778 -9.3e-05</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='cafe_table_clone'>
+        <pose frame=''>1.34624 -0.644846 0.445925 -0.14233 0.001867 -1.56604</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.34624 -0.644846 0.445925 -0.14233 0.001867 -1.56604</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='wheel_leg'>
+        <pose frame=''>0.110243 -0.78934 1.50252 3.1252 0.106564 2.90614</pose>
+        <scale>1 1 1</scale>
+        <link name='base_footprint'>
+          <pose frame=''>0.110243 -0.78934 1.50252 3.1252 0.106564 2.90614</pose>
+          <velocity>-2.4e-05 2.4e-05 1.1e-05 -7.6e-05 -7.4e-05 -2e-06</velocity>
+          <acceleration>0.000112 0.000325 0.001343 0.026678 0.289204 0.016862</acceleration>
+          <wrench>0.000337 0.000976 0.00403 0 -0 0</wrench>
+        </link>
+        <link name='link_left_hip'>
+          <pose frame=''>0.16557 -0.694733 1.20589 -1.7332 -1.46284 3.06952</pose>
+          <velocity>4e-06 2.6e-05 4e-06 -0.000723 5.9e-05 -0.000169</velocity>
+          <acceleration>-0.005407 -0.011267 -0.003067 0.776177 -0.30801 0.025042</acceleration>
+          <wrench>-5.4e-05 -0.000113 -3.1e-05 0 -0 0</wrench>
+        </link>
+        <link name='link_left_knee'>
+          <pose frame=''>0.255643 -0.717771 1.29675 1.59505 -0.774562 -0.249501</pose>
+          <velocity>1.8e-05 0.000137 7e-06 -0.015515 0.001709 0.003894</velocity>
+          <acceleration>0.151467 0.398663 -0.003976 0.011672 -1.29978 -2.43019</acceleration>
+          <wrench>0.001515 0.003987 -4e-05 0 -0 0</wrench>
+        </link>
+        <link name='link_left_leg1'>
+          <pose frame=''>0.165571 -0.694731 1.20589 1.59486 -0.77396 -0.250442</pose>
+          <velocity>1.4e-05 6.5e-05 6e-06 0.001438 -0.000522 0.000571</velocity>
+          <acceleration>-0.019289 0.001072 0.015147 1.81043 1.44202 -1.86368</acceleration>
+          <wrench>-0.000334 1.9e-05 0.000262 0 -0 0</wrench>
+        </link>
+        <link name='link_left_leg2'>
+          <pose frame=''>0.255643 -0.717771 1.29674 -1.59036 -0.560295 2.92026</pose>
+          <velocity>4e-05 0.000243 1.4e-05 -0.025256 0.004052 0.013106</velocity>
+          <acceleration>0.087452 0.217033 -0.03697 2.25933 1.33853 -2.54984</acceleration>
+          <wrench>0.001456 0.003613 -0.000616 0 -0 0</wrench>
+        </link>
+        <link name='link_left_wheel'>
+          <pose frame=''>0.150517 -0.683868 1.36601 3.09394 -1.20963 2.95439</pose>
+          <velocity>4e-06 0.000647 -0.000251 -0.018109 0.003672 0.008181</velocity>
+          <acceleration>-0.009483 -0.030423 -0.004166 -2.68277 0.049535 1.88258</acceleration>
+          <wrench>-0.000881 -0.002827 -0.000387 0 -0 0</wrench>
+        </link>
+        <link name='link_right_hip'>
+          <pose frame=''>0.119258 -0.889271 1.20264 -1.71394 -1.46313 3.05012</pose>
+          <velocity>-4e-06 3e-06 1e-05 0.000806 -0.000784 0.000177</velocity>
+          <acceleration>0.000813 0.008814 -0.008322 -0.326647 -0.292953 0.040167</acceleration>
+          <wrench>8e-06 8.8e-05 -8.3e-05 0 -0 0</wrench>
+        </link>
+        <link name='link_right_knee'>
+          <pose frame=''>0.209363 -0.912149 1.2935 1.59507 -0.774235 -0.250883</pose>
+          <velocity>-0.000109 -0.000648 3.7e-05 -0.004937 -0.001401 -0.006559</velocity>
+          <acceleration>-0.091495 -0.947578 -0.028289 2.75639 1.2512 1.35009</acceleration>
+          <wrench>-0.000915 -0.009476 -0.000283 0 -0 0</wrench>
+        </link>
+        <link name='link_right_leg1'>
+          <pose frame=''>0.119257 -0.889269 1.20263 1.59256 -0.773999 -0.24871</pose>
+          <velocity>6e-06 0.000134 0.000105 0.02728 -0.006338 0.017039</velocity>
+          <acceleration>-0.112241 -0.429955 -0.082993 -0.140702 -0.428549 1.60468</acceleration>
+          <wrench>-0.001942 -0.00744 -0.001436 0 -0 0</wrench>
+        </link>
+        <link name='link_right_leg2'>
+          <pose frame=''>0.209365 -0.912143 1.29349 -1.59074 -0.560733 2.91854</pose>
+          <velocity>-3.8e-05 -0.000287 7e-05 -0.018091 0.002667 0.00867</velocity>
+          <acceleration>0.078777 -0.418049 0.088398 -0.678851 -1.50309 3.08457</acceleration>
+          <wrench>0.001312 -0.00696 0.001472 0 -0 0</wrench>
+        </link>
+        <link name='link_right_wheel'>
+          <pose frame=''>0.099685 -0.897517 1.36244 0.0353 -1.033 -0.264828</pose>
+          <velocity>2.7e-05 0 0.000272 -0.044106 -0.00597 0.022115</velocity>
+          <acceleration>-0.04133 0.05172 0.135465 -2.31711 0.084023 -0.127595</acceleration>
+          <wrench>-0.003841 0.004806 0.012589 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>-1.9763 0.815903 2.05046 -0 0.163143 -0.548566</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
   </world>
 </sdf>
