@@ -28,10 +28,12 @@ class roll_controller():
             self.goal_pub[name] = rospy.Publisher('/wheel_leg/'+name.strip('joint_')+'_controller/command',Float64,queue_size=10)
 
 
-        self.Kp_h = 0.1
-        self.Ki_h = 0.05
-        self.Kp_r = 0.0
-        self.Kd_r = 0.0
+        self.Kp_h = 0.005
+        self.Ki_h = 0.02
+        self.Kd_h = 0.02
+        self.Kp_r = 0.00
+        self.Ki_r = 0.03
+        self.Kd_r = 0.04
 
         self.roll_sub = rospy.Subscriber('/balance_state_roll',Float64,self.roll_cb)
         self.joint_sub = rospy.Subscriber('/wheel_leg/joint_states',JointState,self.joint_state_cb)
@@ -77,12 +79,16 @@ class roll_controller():
         self.height = max(self.left_height,self.right_height)
         self.height_err = self.height_des - self.height
 
-        self.roll_err = self.roll_des -self.roll
+        if abs(self.height_err) < 0.01:
+            self.height_err = 0.0
 
-        control_value_height = self.Kp_h * (self.height_err - self.last_height_err) + self.Ki_h * self.height_err
-        control_value_roll = self.Kp_r * (self.roll_err - self.last_roll_err) + self.Kd_r * (self.roll_err-2*self.last_roll_err+self.last_last_roll_err)
+        self.roll_err = self.roll_des -self.roll
+        if abs(self.roll_err) < 0.015:
+            self.roll_err = 0.0
+        control_value_height = self.Kp_h * (self.height_err - self.last_height_err) + self.Ki_h * self.height_err + self.Kd_h * (self.height_err-2*self.last_height_err+self.last_last_height_err)
+        control_value_roll = self.Kp_r * (self.roll_err - self.last_roll_err) + self.Ki_r * self.roll_err + self.Kd_r * (self.roll_err-2*self.last_roll_err+self.last_last_roll_err)
         left_height_des = self.left_height + control_value_height + control_value_roll
-        right_height_des = self.left_height + control_value_height - control_value_roll
+        right_height_des = self.right_height + control_value_height - control_value_roll
         self.last_last_height_err = self.last_height_err
         self.last_height_err = self.height_err
         self.last_last_roll_err = self.last_roll_err
@@ -90,6 +96,8 @@ class roll_controller():
         left_height_des = self.clamp(left_height_des,maxValue=0.26,minValue=0.12)
         right_height_des = self.clamp(right_height_des,maxValue=0.26,minValue=0.12)
 
+        rospy.loginfo_throttle(0.5,'left_height_des: %f   right_height_des: %f ' % (left_height_des,right_height_des))
+        rospy.loginfo_throttle(0.5,'control_value_height: %f   control_value_roll: %f ' % (control_value_height,control_value_roll))
         left_joint_angle = self.height_to_angle(left_height_des)
         right_joint_angle = self.height_to_angle(right_height_des)
         self.goal_pub['joint_left_hip_left_leg1'].publish(Float64(left_joint_angle))
