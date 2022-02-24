@@ -43,6 +43,10 @@
   </node>
     <node name="joints_traj" pkg="wheel_leg" type="joints_traj.py" >
   </node>
+    <node name="roll_ctrl" pkg="wheel_leg" type="roll_control.py" >
+  </node>
+    <node name="ratio_recv" pkg="wheel_leg" type="ratio_receive.py" >
+  </node>
   <!-- Rviz -->
   <!-- <node
   name="rviz"
