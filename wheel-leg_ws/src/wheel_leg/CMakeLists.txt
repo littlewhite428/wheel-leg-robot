@@ -27,6 +27,15 @@ generate_messages(
 catkin_package(
 	CATKIN_DEPENDS message_runtime
 )
+
+include_directories(
+	${catkin_INCLUDE_DIRS}
+	${EIGEN_INCLUDE_DIRS} )
+## Declare a cpp executable
+add_executable(lqr_control_node 
+	src/lqr_control_node.cpp
+)
+target_link_libraries(lqr_control_node ${catkin_LIBRARIES})
 foreach(dir config launch meshes meshes2 urdf)
 	install(DIRECTORY ${dir}/
 		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
