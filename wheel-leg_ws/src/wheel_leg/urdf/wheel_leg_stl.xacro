@@ -627,14 +627,27 @@
     </transmission>
   </xacro:macro>
 
-  <xacro:transmission_block joint_name="joint_base_right_hip"/>
-  <xacro:transmission_block joint_name="joint_right_hip_right_leg1"/>
-  <xacro:transmission_block joint_name="joint_base_left_hip"/>
-  <xacro:transmission_block joint_name="joint_left_hip_left_leg1"/>
-  <xacro:transmission_block joint_name="joint_right_leg1_knee"/>
-  <xacro:transmission_block joint_name="joint_right_knee_leg2"/>
-  <xacro:transmission_block joint_name="joint_left_leg1_knee"/>
-  <xacro:transmission_block joint_name="joint_left_knee_leg2"/>
-  <xacro:transmission_block joint_name="joint_left_leg2_wheel"/>
+    <xacro:macro name="transmission_block2" params="joint_name">
+    <transmission name="trans1">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint_name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor1">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>100</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:transmission_block2 joint_name="joint_base_right_hip"/>
+  <xacro:transmission_block2 joint_name="joint_right_hip_right_leg1"/>
+  <xacro:transmission_block2 joint_name="joint_base_left_hip"/>
+  <xacro:transmission_block2 joint_name="joint_left_hip_left_leg1"/>
+  <xacro:transmission_block2 joint_name="joint_right_leg1_knee"/>
+  <xacro:transmission_block2 joint_name="joint_right_knee_leg2"/>
+  <xacro:transmission_block2 joint_name="joint_left_leg1_knee"/>
+  <xacro:transmission_block2 joint_name="joint_left_knee_leg2"/>
+  <xacro:transmission_block2 joint_name="joint_left_leg2_wheel"/>
   <xacro:transmission_block joint_name="joint_right_leg2_wheel"/>
 </robot>

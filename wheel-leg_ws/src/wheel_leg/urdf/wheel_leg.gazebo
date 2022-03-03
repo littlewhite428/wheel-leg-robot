@@ -36,7 +36,7 @@
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
       <minDepth>0.0001</minDepth>
-      <selfCollide>true</selfCollide>
+      <selfCollide>false</selfCollide>
     </gazebo>
   </xacro:macro>
   <xacro:link_setup_block link_name="base_link"/>
@@ -61,7 +61,7 @@
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>
     <material>Gazebo/Black</material>
-    <selfCollide>true</selfCollide>
+    <selfCollide>false</selfCollide>
   </gazebo>
 
   <!-- link_left_wheel -->
@@ -72,7 +72,7 @@
     <kd>1.0</kd>
     <minDepth>0.001</minDepth>
     <material>Gazebo/Black</material>
-    <selfCollide>true</selfCollide>
+    <selfCollide>false</selfCollide>
   </gazebo>
 
   <!-- link_imu -->
