@@ -1,0 +1,3 @@
+geometry_msgs/Vector3 COM
+geometry_msgs/Vector3 Left_foot
+geometry_msgs/Vector3 Right_foot

@@ -41,14 +41,17 @@
     <param name="~wheel_distance" value="0.22" />
     <param name="~wheel_radius" value="0.04" />
   </node>
-    <node name="joints_traj" pkg="wheel_leg" type="joints_traj.py" >
-  </node>
+    <!-- <node name="joints_traj" pkg="wheel_leg" type="joints_traj.py" >
+  </node> -->
     <!-- <node name="roll_ctrl" pkg="wheel_leg" type="roll_control.py" >
   </node> -->
-    <node name="lqr_control" pkg="wheel_leg" type="lqr_control_node" >
+    <!-- <node name="lqr_control" pkg="wheel_leg" type="lqr_control_node" >
+  </node> -->
+  <node name="biped_control" pkg="wheel_leg" type="biped_control_node" >
   </node>
-    <node name="ratio_recv" pkg="wheel_leg" type="ratio_receive.py" >
-  </node>
+    <!-- <node name="ratio_recv" pkg="wheel_leg" type="ratio_receive.py" >
+  </node> -->
+
   <!-- Rviz -->
   <!-- <node
   name="rviz"
