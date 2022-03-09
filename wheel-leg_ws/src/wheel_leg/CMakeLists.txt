@@ -9,13 +9,13 @@ project(wheel_leg)
 find_package(catkin REQUIRED
 	rospy
 	roslaunch
-	# rospy
 	roscpp
 	std_msgs
 	geometry_msgs
 	sensor_msgs
 	nav_msgs
 	message_generation
+	usb_can
 )
 add_message_files(
   FILES

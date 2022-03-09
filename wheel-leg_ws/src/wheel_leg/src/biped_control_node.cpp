@@ -4,6 +4,8 @@
 #include <eigen3/Eigen/Dense>
 #include <iostream>
 #include "wheel_leg/Footprint.h"
+#include "serial/serial.h"
+#include "usb_can.h"
 
 ros::Publisher right_hip_pub; 
 ros::Publisher right_leg1_pub;
@@ -60,6 +62,24 @@ int main(int argc, char **argv)
     left_leg1_pub = n.advertise<std_msgs::Float64>("/wheel_leg/left_hip_left_leg1_controller/command", 1);
     left_leg2_pub = n.advertise<std_msgs::Float64>("/wheel_leg/left_knee_leg2_controller/command", 1);
     footprint_sub = n.subscribe("/wheel_leg/footprint", 1, footprint_cb);
+
+    const std::string sss("/dev/ttyACM0");
+    Usb_can usb_can(sss,115200,serial::bytesize_t(8),serial::stopbits_one,serial::parity_none,serial::Timeout::simpleTimeout(1e8));
+    uint8_t id[2];
+    id[0]=0x00;
+    id[1]=0x00;
+    uint8_t data[1];
+    data[0] = 0xCC;
+    usb_can.open();
+    if(usb_can.isOpen()){
+        usb_can.write(id,1,data);
+        std::cout<<"send over"<<std::endl;
+    }
+    else{
+        std::cout<<"open error"<<std::endl;
+    }
+    usb_can.close();
+
 
     // double x = 0,y = 0.0,z = -0.23;
     // while (ros::ok())

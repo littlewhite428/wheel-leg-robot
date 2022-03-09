@@ -6,6 +6,7 @@ from geometry_msgs.msg import Vector3
 from wheel_leg.msg import Footprint
 from std_msgs.msg import  Float64
 import rospy
+import math
 
 rospy.init_node('bipedal_planner')
 foot_print_pub = rospy.Publisher('wheel_leg/footprint',Footprint,queue_size=1)
@@ -33,7 +34,7 @@ right_foot_pos = [-0.0, -0.1, 0]
 delta_t = 0.02
 rat = rospy.Rate(int(1/delta_t))
 
-s_x_table = [0.0 ,0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
+s_x_table = [0.0 ,0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
 s_y_table = [0.2 ,0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]
 a = 1.0
 b = 1.0
@@ -85,14 +86,22 @@ LIPM_model.calculateFootLocationForNextStep(s_x_table[step_num], s_y_table[step_
 # calculate the foot positions for swing phase
 if LIPM_model.support_leg is 'left_leg':
     right_foot_target_pos = [LIPM_model.p_x_star, LIPM_model.p_y_star, 0]
-    swing_foot_pos[:,0] = np.linspace(LIPM_model.right_foot_pos[0], right_foot_target_pos[0], swing_data_len)
-    swing_foot_pos[:,1] = np.linspace(LIPM_model.right_foot_pos[1], right_foot_target_pos[1], swing_data_len)
-    swing_foot_pos[1:swing_data_len-1, 2] = 0.05
+
+    delta_x = LIPM_model.p_x_star - LIPM_model.right_foot_pos[0]
+    delta_y = LIPM_model.p_y_star - LIPM_model.right_foot_pos[1]
+
+    swing_foot_pos[:,0] = LIPM_model.right_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+    swing_foot_pos[:,1] = LIPM_model.right_foot_pos[1] + np.array([delta_y*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+    swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
 else:
     left_foot_target_pos = [LIPM_model.p_x_star, LIPM_model.p_y_star, 0]
-    swing_foot_pos[:,0] = np.linspace(LIPM_model.left_foot_pos[0], left_foot_target_pos[0], swing_data_len)
-    swing_foot_pos[:,1] = np.linspace(LIPM_model.left_foot_pos[1], left_foot_target_pos[1], swing_data_len)
-    swing_foot_pos[1:swing_data_len-1, 2] = 0.05
+    delta_x = LIPM_model.p_x_star - LIPM_model.left_foot_pos[0]
+    delta_y = LIPM_model.p_y_star - LIPM_model.left_foot_pos[1]
+
+    swing_foot_pos[:,0] = LIPM_model.left_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+    swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
+    swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
+
 
 for i in range(int(total_time/delta_t)):
     if rospy.is_shutdown():
@@ -118,19 +127,6 @@ for i in range(int(total_time/delta_t)):
     right_foot_pos_x.append(LIPM_model.right_foot_pos[0])
     right_foot_pos_y.append(LIPM_model.right_foot_pos[1])
     right_foot_pos_z.append(LIPM_model.right_foot_pos[2])
-
-    # vec_com = Vector3()
-    # vec_com.x = Float64(float(LIPM_model.x_t + support_foot_pos[0]))
-    # vec_com.y = Float64(float(LIPM_model.y_t + support_foot_pos[1]))
-    # vec_com.z = Float64(float(COM_pos_0[-1]))
-    # vec_left = Vector3()
-    # vec_left.x = Float64(float(LIPM_model.left_foot_pos[0]))
-    # vec_left.y = Float64(float(LIPM_model.left_foot_pos[1]))
-    # vec_left.z = Float64(float(LIPM_model.left_foot_pos[2]))
-    # vec_right = Vector3()
-    # vec_right.x = Float64(float(LIPM_model.right_foot_pos[0]))
-    # vec_right.y = Float64(float(LIPM_model.right_foot_pos[1]))
-    # vec_right.z = Float64(float(LIPM_model.right_foot_pos[2]))
 
 
     foot_print = Footprint()
@@ -160,7 +156,7 @@ for i in range(int(total_time/delta_t)):
         # theta -= 0.04 # set zero for walking forward, set non-zero for turn left and right
 
         if step_num >= len(s_x_table): # stop forward after 5 steps
-            s_x = 0.0
+            s_x = 0.1
             s_y = 0.2
         else:
             s_x = s_x_table[step_num]
@@ -191,14 +187,23 @@ for i in range(int(total_time/delta_t)):
         # calculate the foot positions for swing phase
         if LIPM_model.support_leg is 'left_leg':
             right_foot_target_pos = [LIPM_model.p_x_star, LIPM_model.p_y_star, 0]
-            swing_foot_pos[:,0] = np.linspace(LIPM_model.right_foot_pos[0], right_foot_target_pos[0], swing_data_len)
-            swing_foot_pos[:,1] = np.linspace(LIPM_model.right_foot_pos[1], right_foot_target_pos[1], swing_data_len)
-            swing_foot_pos[1:swing_data_len-1, 2] = 0.05
+
+            delta_x = LIPM_model.p_x_star - LIPM_model.right_foot_pos[0]
+            delta_y = LIPM_model.p_y_star - LIPM_model.right_foot_pos[1]
+
+            swing_foot_pos[:,0] = LIPM_model.right_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+            swing_foot_pos[:,1] = LIPM_model.right_foot_pos[1] + np.array([delta_y*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+            swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
+
         else:
             left_foot_target_pos = [LIPM_model.p_x_star, LIPM_model.p_y_star, 0]
-            swing_foot_pos[:,0] = np.linspace(LIPM_model.left_foot_pos[0], left_foot_target_pos[0], swing_data_len)
-            swing_foot_pos[:,1] = np.linspace(LIPM_model.left_foot_pos[1], left_foot_target_pos[1], swing_data_len)
-            swing_foot_pos[1:swing_data_len-1, 2] = 0.05
+            delta_x = LIPM_model.p_x_star - LIPM_model.left_foot_pos[0]
+            delta_y = LIPM_model.p_y_star - LIPM_model.left_foot_pos[1]
+
+
+            swing_foot_pos[:,0] = LIPM_model.left_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
+            swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
+            swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
 
     rat.sleep()
 
