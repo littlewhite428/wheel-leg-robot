@@ -16,6 +16,7 @@ find_package(catkin REQUIRED
 	nav_msgs
 	message_generation
 	usb_can
+	kinematics_3dof
 )
 add_message_files(
   FILES
@@ -43,7 +44,6 @@ add_executable(lqr_control_node
 target_link_libraries(lqr_control_node ${catkin_LIBRARIES})
 
 add_executable(biped_control_node 
-	src/kinematics.cpp
 	src/biped_control_node.cpp
 )
 target_link_libraries(biped_control_node ${catkin_LIBRARIES})

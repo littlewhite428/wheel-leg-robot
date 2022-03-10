@@ -1,4 +1,4 @@
-#include "kinematics.h"
+#include "kinematics_3dof.h"
 #include "ros/ros.h"
 #include "std_msgs/Float64.h"
 #include <eigen3/Eigen/Dense>
@@ -64,19 +64,37 @@ int main(int argc, char **argv)
     footprint_sub = n.subscribe("/wheel_leg/footprint", 1, footprint_cb);
 
     const std::string sss("/dev/ttyACM0");
-    Usb_can usb_can(sss,115200,serial::bytesize_t(8),serial::stopbits_one,serial::parity_none,serial::Timeout::simpleTimeout(1e8));
+    Usb_can usb_can(sss,115200,serial::bytesize_t(8),serial::stopbits_one,serial::parity_odd,serial::Timeout::simpleTimeout(1e8));
     uint8_t id[2];
     id[0]=0x00;
     id[1]=0x00;
-    uint8_t data[1];
+    uint8_t data[3];
     data[0] = 0xCC;
+    data[1] = 0xEE;
+    data[2] = 0xFF;
     usb_can.open();
     if(usb_can.isOpen()){
-        usb_can.write(id,1,data);
+        usb_can.write(id,3,data);
         std::cout<<"send over"<<std::endl;
     }
     else{
         std::cout<<"open error"<<std::endl;
+    }
+
+    while(ros::ok()){
+        size_t frame_num = usb_can.available();
+        if(frame_num > 0){
+            std::cout << "--new frame num: " << frame_num << std::endl;
+            // each frame
+            for(int i=0;i<frame_num;i++){
+                std::cout << "  No. " << i << std::endl;
+                can_frame* frame_ptr = usb_can.read();
+                std::cout<<frame_ptr->getStr()<<std::endl;
+                delete frame_ptr;
+            }
+        }
+        ros::Duration(0.01).sleep();
+        ros::spinOnce();
     }
     usb_can.close();
 
@@ -122,7 +140,5 @@ int main(int argc, char **argv)
     //     }
     // }
     // ros::shutdown();
-    while(ros::ok()){
-        ros::spin();
-    }
+
 }

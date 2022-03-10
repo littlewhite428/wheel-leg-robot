@@ -1,6 +1,6 @@
-#include "kinematics.h"
+#include "kinematics_3dof.h"
 #include <cmath>
-#include <iostream>
+
 namespace Kinematics
 {
     Eigen::Vector3d ik(const Eigen::Vector3d& transform, double L1, double L2){
