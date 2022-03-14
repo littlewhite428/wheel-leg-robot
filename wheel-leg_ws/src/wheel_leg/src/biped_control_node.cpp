@@ -63,82 +63,41 @@ int main(int argc, char **argv)
     left_leg2_pub = n.advertise<std_msgs::Float64>("/wheel_leg/left_knee_leg2_controller/command", 1);
     footprint_sub = n.subscribe("/wheel_leg/footprint", 1, footprint_cb);
 
-    const std::string sss("/dev/ttyACM0");
-    Usb_can usb_can(sss,115200,serial::bytesize_t(8),serial::stopbits_one,serial::parity_odd,serial::Timeout::simpleTimeout(1e8));
-    uint8_t id[2];
-    id[0]=0x00;
-    id[1]=0x00;
-    uint8_t data[3];
-    data[0] = 0xCC;
-    data[1] = 0xEE;
-    data[2] = 0xFF;
-    usb_can.open();
-    if(usb_can.isOpen()){
-        usb_can.write(id,3,data);
-        std::cout<<"send over"<<std::endl;
-    }
-    else{
-        std::cout<<"open error"<<std::endl;
-    }
-
-    while(ros::ok()){
-        size_t frame_num = usb_can.available();
-        if(frame_num > 0){
-            std::cout << "--new frame num: " << frame_num << std::endl;
-            // each frame
-            for(int i=0;i<frame_num;i++){
-                std::cout << "  No. " << i << std::endl;
-                can_frame* frame_ptr = usb_can.read();
-                std::cout<<frame_ptr->getStr()<<std::endl;
-                delete frame_ptr;
-            }
-        }
-        ros::Duration(0.01).sleep();
-        ros::spinOnce();
-    }
-    usb_can.close();
-
-
-    // double x = 0,y = 0.0,z = -0.23;
-    // while (ros::ok())
-    // {
-    //     for(x=-0.25;x<=0.25;x+=0.001){
-
-    //         Eigen::Vector3d joint_angle = Kinematics::ik(Eigen::Vector3d(x,y,z),0.13,0.13);
-    //         std_msgs::Float64 angle = std_msgs::Float64();
-    //         angle.data = joint_angle(0);
-    //         right_hip_pub.publish(angle);
-    //         left_hip_pub.publish(angle);
-
-    //         angle.data = joint_angle(1);
-    //         right_leg1_pub.publish(angle);
-    //         left_leg1_pub.publish(angle);
-
-    //         angle.data = joint_angle(2);
-    //         right_leg2_pub.publish(angle);
-    //         left_leg2_pub.publish(angle);
-
-    //         ros::Duration(0.02).sleep();
-    //     }
-    //     for(x=0.25;x>=-0.25;x-=0.001){
-
-    //         Eigen::Vector3d joint_angle = Kinematics::ik(Eigen::Vector3d(x,y,z),0.13,0.13);
-    //         std_msgs::Float64 angle = std_msgs::Float64();
-    //         angle.data = joint_angle(0);
-    //         right_hip_pub.publish(angle);
-    //         left_hip_pub.publish(angle);
-
-    //         angle.data = joint_angle(1);
-    //         right_leg1_pub.publish(angle);
-    //         left_leg1_pub.publish(angle);
-
-    //         angle.data = joint_angle(2);
-    //         right_leg2_pub.publish(angle);
-    //         left_leg2_pub.publish(angle);
-
-    //         ros::Duration(0.02).sleep();
-    //     }
+    // const std::string sss("/dev/ttyACM0");
+    // Usb_can usb_can(sss,115200,serial::bytesize_t(8),serial::stopbits_one,serial::parity_odd,serial::Timeout::simpleTimeout(1e8));
+    // uint8_t id[2];
+    // id[0]=0x00;
+    // id[1]=0x00;
+    // uint8_t data[3];
+    // data[0] = 0xCC;
+    // data[1] = 0xEE;
+    // data[2] = 0xFF;
+    // usb_can.open();
+    // if(usb_can.isOpen()){
+    //     usb_can.write(id,3,data);
+    //     std::cout<<"send over"<<std::endl;
     // }
-    // ros::shutdown();
+    // else{
+    //     std::cout<<"open error"<<std::endl;
+    // }
+
+    // while(ros::ok()){
+    //     size_t frame_num = usb_can.available();
+    //     if(frame_num > 0){
+    //         std::cout << "--new frame num: " << frame_num << std::endl;
+    //         // each frame
+    //         for(int i=0;i<frame_num;i++){
+    //             std::cout << "  No. " << i << std::endl;
+    //             can_frame* frame_ptr = usb_can.read();
+    //             std::cout<<frame_ptr->getStr()<<std::endl;
+    //             delete frame_ptr;
+    //         }
+    //     }
+    //     ros::Duration(0.01).sleep();
+    //     ros::spinOnce();
+    // }
+    // usb_can.close();
+
+    ros::spin();
 
 }

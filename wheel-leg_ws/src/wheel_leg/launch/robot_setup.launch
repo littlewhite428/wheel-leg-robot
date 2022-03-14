@@ -45,12 +45,12 @@
   </node> -->
     <!-- <node name="roll_ctrl" pkg="wheel_leg" type="roll_control.py" >
   </node> -->
-    <!-- <node name="lqr_control" pkg="wheel_leg" type="lqr_control_node" >
-  </node> -->
-  <node name="biped_control" pkg="wheel_leg" type="biped_control_node" >
+    <node name="lqr_control" pkg="wheel_leg" type="lqr_control_node" >
   </node>
-    <!-- <node name="ratio_recv" pkg="wheel_leg" type="ratio_receive.py" >
+  <!-- <node name="biped_control" pkg="wheel_leg" type="biped_control_node" >
   </node> -->
+    <node name="ratio_recv" pkg="wheel_leg" type="ratio_receive.py" >
+  </node>
 
   <!-- Rviz -->
   <!-- <node
