@@ -99,7 +99,7 @@ else:
     delta_y = LIPM_model.p_y_star - LIPM_model.left_foot_pos[1]
 
     swing_foot_pos[:,0] = LIPM_model.left_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
-    swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
+    swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_y*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
     swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
 
 
@@ -156,7 +156,7 @@ for i in range(int(total_time/delta_t)):
         # theta -= 0.04 # set zero for walking forward, set non-zero for turn left and right
 
         if step_num >= len(s_x_table): # stop forward after 5 steps
-            s_x = 0.1
+            s_x = 0.0
             s_y = 0.2
         else:
             s_x = s_x_table[step_num]
@@ -202,7 +202,7 @@ for i in range(int(total_time/delta_t)):
 
 
             swing_foot_pos[:,0] = LIPM_model.left_foot_pos[0] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])
-            swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_x*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
+            swing_foot_pos[:,1] = LIPM_model.left_foot_pos[1] + np.array([delta_y*(1.0/(swing_data_len-1) * tao - math.sin(2*math.pi*tao/(swing_data_len-1))/(2*math.pi)) for tao in range(swing_data_len)])      
             swing_foot_pos[:,2] = np.array([0.05*(0.5-0.5*math.cos(2*math.pi*tao/(swing_data_len-1))) for tao in range(swing_data_len)])
 
     rat.sleep()
